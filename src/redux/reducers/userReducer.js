@@ -2,19 +2,19 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    user: null,
+  user: null,
 };
 
 const userReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case actionTypes.SET_USER:
-            return {
-                ...state,
-                user: action.payload,
-            };
-        default:
-            return state;
-    }
+  switch (action.type) {
+  case actionTypes.SET_USER:
+    return {
+      ...state,
+      user: action.payload,
+    };
+  default:
+    return state;
+  }
 };
 
 export default userReducer;
