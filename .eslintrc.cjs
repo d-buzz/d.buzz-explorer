@@ -13,6 +13,7 @@ module.exports = {
   plugins: ['react-refresh'],
   rules: {
     indent: ['error', 2],
+    semi: ['error', 'never'], // Configure the 'semi' rule
     'react/jsx-no-target-blank': 'off',
     'react-refresh/only-export-components': [
       'warn',

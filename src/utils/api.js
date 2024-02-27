@@ -1,30 +1,31 @@
 // /utils/api.js
-const BASE_URL = 'https://api.example.com';
+// const BASE_URL = 'https://rpc.d.buzz/'
+const BASE_URL = 'https://api.hive.blog'
 
 // Example function for making a GET request
 export const fetchData = async (endpoint) => {
   try {
-    const response = await fetch(`${BASE_URL}/${endpoint}`);
-    return await response.json();
+    const response = await fetch(`${BASE_URL}/${endpoint}`)
+    return await response.json()
   } catch (error) {
-    console.error('Error fetching data:', error);
-    throw error;
+    console.error('Error fetching data:', error)
+    throw error
   }
-};
+}
 
 // Example function for making a POST request
-export const postData = async (endpoint, body) => {
+export const postData = async (body) => {
   try {
-    const response = await fetch(`${BASE_URL}/${endpoint}`, {
+    const response = await fetch(`${BASE_URL}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
-    });
-    return await response.json();
+    })
+    return await response.json()
   } catch (error) {
-    console.error('Error posting data:', error);
-    throw error;
+    console.error('Error posting data:', error)
+    throw error
   }
-};
+}

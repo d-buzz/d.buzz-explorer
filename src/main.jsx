@@ -1,15 +1,17 @@
-// main.jsx
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { Provider } from 'react-redux';
-import App from './App';
-import store from './redux/store/configureStore';
-import './index.css';
+import * as React from "react"
+import * as ReactDOM from "react-dom/client"
+import {Provider} from 'react-redux'
+import App from './App'
+import store from './redux/store/configureStore'
+import './index.css'
+import {Flowbite} from "flowbite-react"
 
-createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    {/*<React.StrictMode>*/}
+    <Flowbite>
+      <App/>
+    </Flowbite>
+    {/*</React.StrictMode>*/}
   </Provider>
-);
+)
