@@ -1,12 +1,21 @@
 import PropTypes from "prop-types"
 import {timeAgo, vestToHive} from "../../../../../utils/helper.js"
 
-const CurationReward = ({transaction, getDynamicGlobalProperties}) => {
+const ClaimRewardBalance = ({transaction, getDynamicGlobalProperties}) => {
 
+  // {
+  //   "author": "joycebuzz",
+  //   "permlink": "697yivqo1l71rt3z09acm7",
+  //   "hbd_payout": "0.070 HBD",
+  //   "hive_payout": "0.000 HIVE",
+  //   "vesting_payout": "366.420682 VESTS",
+  //   "payout_must_be_claimed": true,
+  //   "curators_vesting_payout": "718.948638 VESTS"
+  // }
   const {
     op: [
       opType,
-      {author, curator, payout_must_be_claimed, permlink, reward}
+      {author, permlink, hbd_payout, hive_payout, vesting_payout, payout_must_be_claimed, curators_vesting_payout}
     ],
     block,
     trx_id,
@@ -24,18 +33,13 @@ const CurationReward = ({transaction, getDynamicGlobalProperties}) => {
     getDynamicGlobalProperties?.total_vesting_fund_hive
   ).toFixed(3)
 
-  return <div className="op op-mini" id={trx_id}>
-
+  return <div className="op op-collapse op-under op-mini" id={trx_id}>
     <span className="tag tag-virt">virtual</span>
 
     <div className="action">
-      <span className="account">{curator}</span> curation reward: {formatVestToHive(reward)} HP {`for `}
-      <a
-        href={`/@${author}/${permlink}`}
-        className="keychainify-checked"
-      >
-        {`@${author}/${permlink}`}
-      </a>
+      <span className="account">{author}</span>{` `}
+      author reward: {hbd_payout} and {formatVestToHive(vesting_payout)} HP for {` `}
+      <a href={`/@${author}/${permlink}`} className="keychainify-checked">{`@${author}/${permlink}`}</a>
     </div>
 
     <div className="foot">
@@ -46,9 +50,9 @@ const CurationReward = ({transaction, getDynamicGlobalProperties}) => {
   </div>
 }
 
-CurationReward.propTypes = {
+ClaimRewardBalance.propTypes = {
   transaction: PropTypes.object.isRequired,
   getDynamicGlobalProperties: PropTypes.object.isRequired,
 }
 
-export default CurationReward
+export default ClaimRewardBalance

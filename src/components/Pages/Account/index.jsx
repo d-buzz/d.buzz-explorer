@@ -22,12 +22,19 @@ import JsonMetadata from "./JsonMetadata/index.jsx"
 import KeyHistory from "./KeyHistory/index.jsx"
 import Authorities from "./Authorities/index.jsx"
 import VotesFor from "./VotesFor/index.jsx"
+import CommentPayoutUpdate from "./Operation/CommentPayoutUpdate/index.jsx";
+import CommentReward from "./Operation/CommentReward/index.jsx";
+import AuthorReward from "./Operation/AuthorReward/index.jsx";
 
 const AccountPage = () => {
   const {username} = useParams()
   const trimmedUsername = username.startsWith('@') ? username.slice(1) : username
   const [accountHistory, setAccountHistory] = useState([])
   const [account, setAccount] = useState({})
+  const [rcAccount, setRcAccount] = useState([])
+  const [getDynamicGlobalProperties, setGetDynamicGlobalProperties] = useState({})
+  const [totalVestingShares, setTotalVestingShares] = useState('')
+  const [totalVestingFundHive, setTotalVestingFundHive] = useState('')
 
   const handleGetAccountHistory = async () => {
     try {
@@ -59,18 +66,57 @@ const AccountPage = () => {
     }
   }
 
+  const handleFindRcAccount = async () => {
+    try {
+      const dataToSend = {
+        jsonrpc: '2.0',
+        method: 'rc_api.find_rc_accounts',
+        params: {'accounts': [trimmedUsername]},
+        id: 1,
+      }
+      return await postData(dataToSend)
+    } catch (error) {
+      console.error('Error in handleFindRcAccount:', error)
+      throw error // Re-throw the error to propagate it up
+    }
+  }
+
+  const handleGetDynamicGlobalProperties = async () => {
+    try {
+      const dataToSend = {
+        jsonrpc: '2.0',
+        method: 'condenser_api.get_dynamic_global_properties',
+        params: [],
+        id: 1,
+      }
+      return await postData(dataToSend)
+    } catch (error) {
+      console.error('Error in handleGetDynamicGlobalProperties:', error)
+      throw error // Re-throw the error to propagate it up
+    }
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [accountHistoryResponse, accountResponse] = await Promise.all([
+        const [
+          accountHistoryResponse,
+          accountResponse,
+          findRcAccountResponse,
+          getDynamicGlobalPropertiesResponse,
+        ] = await Promise.all([
           handleGetAccountHistory(),
           handleGetAccount(),
+          handleFindRcAccount(),
+          handleGetDynamicGlobalProperties(),
         ])
 
         const sorted = accountHistoryResponse?.result.sort((a, b) => b[0] - a[0])
 
         setAccountHistory(sorted)
         setAccount(accountResponse?.result[0])
+        setRcAccount(findRcAccountResponse?.result.rc_accounts ?? [])
+        setGetDynamicGlobalProperties(getDynamicGlobalPropertiesResponse?.result)
 
       } catch (error) {
         console.error('Error fetching data:', error)
@@ -80,6 +126,14 @@ const AccountPage = () => {
     fetchData() // Invoke the fetchData function
 
   }, [trimmedUsername])
+
+  useEffect(() => {
+    if (getDynamicGlobalProperties) {
+      const { total_vesting_fund_hive, total_vesting_shares } = getDynamicGlobalProperties
+      setTotalVestingShares(total_vesting_fund_hive)
+      setTotalVestingFundHive(total_vesting_shares)
+    }
+  }, [getDynamicGlobalProperties])
 
 
   return (
@@ -92,13 +146,19 @@ const AccountPage = () => {
       <hr/>
       <div className="row">
         <div className="col-md-4">
-          <PowerDetail account={account} />
+          <PowerDetail
+            account={account}
+            rcAccount={rcAccount}
+            totalVestingFundHive={totalVestingFundHive}
+            totalVestingShares={totalVestingShares}
+            getDynamicGlobalProperties={getDynamicGlobalProperties}
+          />
           <ResourceCredits/>
           <AccountDetail/>
           <JsonMetadata/>
           <KeyHistory/>
           <Authorities/>
-          <VotesFor />
+          <VotesFor/>
         </div>
 
         <div className="col-md-8">
@@ -111,6 +171,18 @@ const AccountPage = () => {
 
             if (opType === 'effective_comment_vote') {
               return <EffectiveCommentVote transaction={transaction} key={index}/>
+            }
+
+            if (opType === 'comment_payout_update') {
+              return <CommentPayoutUpdate transaction={transaction} key={index}/>
+            }
+
+            if (opType === 'comment_reward') {
+              return <CommentReward transaction={transaction} key={index}/>
+            }
+
+            if (opType === 'author_reward') {
+              return <AuthorReward transaction={transaction} getDynamicGlobalProperties={getDynamicGlobalProperties} key={index}/>
             }
 
             if (opType === 'custom_json') {
@@ -126,7 +198,7 @@ const AccountPage = () => {
             }
 
             if (opType === 'claim_reward_balance') {
-              return <ClaimRewardBalance transaction={transaction} key={index}/>
+              return <ClaimRewardBalance transaction={transaction} getDynamicGlobalProperties={getDynamicGlobalProperties} key={index}/>
             }
 
             if (opType === 'comment_options') {
@@ -134,7 +206,7 @@ const AccountPage = () => {
             }
 
             if (opType === 'curation_reward') {
-              return <CurationReward transaction={transaction} key={index}/>
+              return <CurationReward transaction={transaction} getDynamicGlobalProperties={getDynamicGlobalProperties} key={index}/>
             }
 
             if (opType === 'transfer') {
@@ -150,7 +222,7 @@ const AccountPage = () => {
             }
 
             if (opType === 'comment_benefactor_reward') {
-              return <CommentBenefactorReward transaction={transaction} key={index}/>
+              return <CommentBenefactorReward transaction={transaction} getDynamicGlobalProperties={getDynamicGlobalProperties} key={index}/>
             }
 
             if (opType === 'account_created') {

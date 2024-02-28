@@ -9,9 +9,9 @@ import {Flowbite} from "flowbite-react"
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     {/*<React.StrictMode>*/}
-    <Flowbite>
-      <App/>
-    </Flowbite>
+      <Flowbite>
+        <App/>
+      </Flowbite>
     {/*</React.StrictMode>*/}
   </Provider>
 )

@@ -1,12 +1,12 @@
 import PropTypes from "prop-types"
 import {timeAgo, vestToHive} from "../../../../../utils/helper.js"
 
-const ClaimRewardBalance = ({transaction, getDynamicGlobalProperties}) => {
+const ClaimRewardBalance = ({transaction}) => {
 
   const {
     op: [
       opType,
-      {account, reward_hbd, reward_hive, reward_vests}
+      {author, permlink}
     ],
     block,
     trx_id,
@@ -18,12 +18,6 @@ const ClaimRewardBalance = ({transaction, getDynamicGlobalProperties}) => {
 
   const trimTrxId = trx_id.substring(0, 9)
 
-  const formatVestToHive = (vest) => vestToHive(
-    vest,
-    getDynamicGlobalProperties?.total_vesting_shares,
-    getDynamicGlobalProperties?.total_vesting_fund_hive
-  ).toFixed(3)
-
   return <div className="op op-mini" id={trx_id}>
     <a
       className="tag tag-hash keychainify-checked"
@@ -32,7 +26,28 @@ const ClaimRewardBalance = ({transaction, getDynamicGlobalProperties}) => {
     </a>
 
     <div className="action">
-      <span className="account">{account}</span> claim reward: {formatVestToHive(reward_vests)} HP
+      <span className="account">{author}</span>
+      comment_payout_update
+      <table className="table table-condensed hash3 ultra-condensed">
+        <tbody>
+          <tr>
+            <th>
+              <samp>author</samp>
+            </th>
+            <td>
+              <span style={{color: '#080'}}>{author}</span>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <samp>permlink</samp>
+            </th>
+            <td>
+              <span style={{color: '#080'}}>{permlink}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <div className="foot">
@@ -44,8 +59,7 @@ const ClaimRewardBalance = ({transaction, getDynamicGlobalProperties}) => {
 }
 
 ClaimRewardBalance.propTypes = {
-  transaction: PropTypes.object.isRequired,
-  getDynamicGlobalProperties: PropTypes.object.isRequired,
+  transaction: PropTypes.object.isRequired
 }
 
 export default ClaimRewardBalance

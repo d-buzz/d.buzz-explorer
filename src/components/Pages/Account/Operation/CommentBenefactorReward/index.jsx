@@ -1,7 +1,7 @@
 import PropTypes from "prop-types"
-import {timeAgo} from "../../../../../utils/helper.js"
+import {timeAgo, vestToHive} from "../../../../../utils/helper.js"
 
-const ClaimAccount = ({transaction}) => {
+const ClaimAccount = ({transaction,getDynamicGlobalProperties}) => {
 
   const {
     op: [
@@ -26,11 +26,17 @@ const ClaimAccount = ({transaction}) => {
 
   const trimTrxId = trx_id.substring(0, 9)
 
+  const formatVestToHive = (vest) => vestToHive(
+    vest,
+    getDynamicGlobalProperties?.total_vesting_shares,
+    getDynamicGlobalProperties?.total_vesting_fund_hive
+  ).toFixed(3)
+
   return <div className="op op-mini" id={trx_id}>
     <span className="tag tag-virt">virtual</span>
 
     <div className="action">
-      <span className="account">{benefactor}</span> comment benefactor reward: {vesting_payout} for <a
+      <span className="account">{benefactor}</span> comment benefactor reward: {formatVestToHive(vesting_payout)} HP for <a
         href={`/@${author}/${permlink}`} className="keychainify-checked">{`@${author}/${permlink}`}</a>
     </div>
 
@@ -43,7 +49,8 @@ const ClaimAccount = ({transaction}) => {
 }
 
 ClaimAccount.propTypes = {
-  transaction: PropTypes.object.isRequired
+  transaction: PropTypes.object.isRequired,
+  getDynamicGlobalProperties: PropTypes.object.isRequired,
 }
 
 export default ClaimAccount

@@ -12,6 +12,20 @@ export const timeAgo = (timestamp) => !timestamp.endsWith('Z')
   ? moment(`${timestamp}Z`).local().fromNow()
   : moment(timestamp).local().fromNow()
 
+export const vestToHive = (vestingShares, totalVestingShares, totalVestingFundHive) =>
+  parseFloat(totalVestingFundHive) * (parseFloat(vestingShares) / parseFloat(totalVestingShares))
+
+export const tidyNumber = (number) => {
+  if (number) {
+    let parts = number.toString().split('.')
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    return parts.join('.')
+  }
+
+  return null
+}
+
+
 // Other helper functions can be added as needed
 
 export const operationType = (type) => {

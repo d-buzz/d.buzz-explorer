@@ -4,10 +4,10 @@ const Header = () => {
   return (
     <header>
       <div className="container" style={{textTransform: 'lowercase'}}>
-        <a id="logo" href={'/'} className="keychainify-checked">
-          {/*<img src="/images/logo-hive.png" alt="Logo hive"/>*/}
-          {/*<BrandIcon height={10}/>*/}
-          Explorer
+        <a id="logo" href='https://d.buzz/' className="keychainify-checked" style={{display: 'inline-block'}} >
+          {/*<img src="https://hiveblocks.com/images/logo-hive.png" alt="Logo hive"/>*/}
+          <BrandIcon />
+          {/*Explorer*/}
         </a>
         <small>
           <a href="https://signup.hive.io/" className="pull-right keychainify-checked">create account</a>
@@ -21,7 +21,7 @@ const Header = () => {
         </form>
 
         <div style={{display: 'inline-block'}} id="nav">
-          <a href="https://hiveblocks.com/witnesses" className="keychainify-checked">witnesses</a>
+          <a href="https://peakd.com/witnesses" className="keychainify-checked">witnesses</a>
         </div>
       </div>
     </header>
