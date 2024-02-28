@@ -1,12 +1,6 @@
 import {useParams} from "react-router-dom"
 import {postData} from "../../../utils/api.js"
 import {useEffect, useState} from "react"
-import ResourceCreditsComponent from "./resource-credits.jsx"
-import HivePowerInfo from "./hive-power-info.jsx"
-import AccountDetail from "./account-detail.jsx"
-import JsonMetaData from "./json-meta-data.jsx"
-import OwnerKey from "./owner-key.jsx"
-import Authority from "./authority.jsx"
 import FloatingNumber from "./floating-number.jsx"
 import EffectiveCommentVote from "./Operation/EffectiveCommentVote/index.jsx"
 import Vote from "./Operation/Vote/index.jsx"
@@ -21,6 +15,13 @@ import AccountCreated from "./Operation/AccountCreated/index.jsx"
 import CreateClaimedAccount from "./Operation/CreateClaimedAccount/index.jsx"
 import CustomJson from "./Operation/CustomJson/index.jsx"
 import AccountUpdate from "./Operation/AccountUpdate/index.jsx"
+import PowerDetail from "./PowerDetail/index.jsx"
+import ResourceCredits from "./ResourceCredits/index.jsx"
+import AccountDetail from "./AccountDetail/index.jsx"
+import JsonMetadata from "./JsonMetadata/index.jsx"
+import KeyHistory from "./KeyHistory/index.jsx"
+import Authorities from "./Authorities/index.jsx"
+import VotesFor from "./VotesFor/index.jsx"
 
 const AccountPage = () => {
   const {username} = useParams()
@@ -33,7 +34,7 @@ const AccountPage = () => {
       const dataToSend = {
         jsonrpc: '2.0',
         method: 'condenser_api.get_account_history',
-        params: [trimmedUsername, -1, 1000],
+        params: [trimmedUsername, -1, 100],
         id: 1,
       }
       return await postData(dataToSend)
@@ -91,12 +92,13 @@ const AccountPage = () => {
       <hr/>
       <div className="row">
         <div className="col-md-4">
-          <HivePowerInfo/>
-          <ResourceCreditsComponent/>
+          <PowerDetail account={account} />
+          <ResourceCredits/>
           <AccountDetail/>
-          <JsonMetaData/>
-          <OwnerKey/>
-          <Authority/>
+          <JsonMetadata/>
+          <KeyHistory/>
+          <Authorities/>
+          <VotesFor />
         </div>
 
         <div className="col-md-8">
@@ -159,7 +161,7 @@ const AccountPage = () => {
               return <CreateClaimedAccount transaction={transaction} key={index}/>
             }
 
-            return <p key={index}>{index}</p>
+            return <p key={index}>{opType} | need to add this kind of component</p>
           })
           }
         </div>

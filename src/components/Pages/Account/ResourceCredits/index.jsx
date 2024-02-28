@@ -1,4 +1,4 @@
-const ResourceCreditsComponent = () => {
+const ResourceCredits = () => {
   return (
     <div className="well well-xs">
       <span className="lead">Resource Credits</span><br />
@@ -53,4 +53,4 @@ const ResourceCreditsComponent = () => {
   )
 }
 
-export default ResourceCreditsComponent
+export default ResourceCredits

@@ -31,7 +31,7 @@ const CustomJson = ({transaction}) => {
         <tbody>
           <tr>
             <th><samp>required_auths</samp></th>
-            <td><samp>{required_auths ?? `[]`}</samp></td>
+            <td><samp>{required_auths.length > 0 ? `[]` : `[]`}</samp></td>
           </tr>
           <tr>
             <th><samp>required_posting_auths</samp></th>

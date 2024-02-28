@@ -1,4 +1,4 @@
-// /redux/reducers/index.js
+// /redux/reducers/index.jsx
 import { combineReducers } from 'redux'
 import userReducer from './userReducer'
 

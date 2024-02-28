@@ -1,5 +1,5 @@
 
-const OwnerKeyHistory = () => {
+const KeyHistory = () => {
   return (
     <div className="well well-xs">
       <a href="/@iamjco/~owners" className="keychainify-checked">Owner key history</a>
@@ -7,4 +7,4 @@ const OwnerKeyHistory = () => {
   )
 }
 
-export default OwnerKeyHistory
+export default KeyHistory
