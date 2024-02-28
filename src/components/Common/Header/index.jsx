@@ -1,4 +1,5 @@
 import BrandIcon from "../../Icon/BrandIcon/index.jsx"
+import SearchBar from "../SearchBar/index.jsx";
 
 const Header = () => {
   return (
@@ -13,12 +14,7 @@ const Header = () => {
           <a href="https://signup.hive.io/" className="pull-right keychainify-checked">create account</a>
         </small>
 
-        <form id="search" action="/search" method="post" className="pull-right">
-          <input name="query" size="25" type="text" placeholder="Account, transaction, or block."/>
-          <button type="submit">
-            <i className="glyphicon glyphicon-search"></i>
-          </button>
-        </form>
+        <SearchBar />
 
         <div style={{display: 'inline-block'}} id="nav">
           <a href="https://peakd.com/witnesses" className="keychainify-checked">witnesses</a>

@@ -27,9 +27,17 @@ const SearchBar = () => {
     }
   }
 
+  // <form id="search" action="/search" method="post" className="pull-right">
+  //   <input name="query" size="25" type="text" placeholder="Account, transaction, or block."/>
+  //   <button type="submit">
+  //     <i className="glyphicon glyphicon-search"></i>
+  //   </button>
+  // </form>
+
+
   return (
     <TextInput
-      className={'flex-grow'}
+      className={'pull-right'}
       id="search"
       type="text"
       rightIcon={IoSearch}

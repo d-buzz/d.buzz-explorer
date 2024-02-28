@@ -50,6 +50,10 @@ const router = createBrowserRouter([
         path: "/:username/:permlink",
         element: <AccountPage />,
       },
+      {
+        path: "/search",
+        element: <SearchPage />,
+      },
     ],
   },
 ])
