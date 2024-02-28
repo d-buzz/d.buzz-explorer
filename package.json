@@ -1,7 +1,11 @@
 {
   "name": "d.buzz-explorer",
-  "private": true,
-  "version": "0.0.0",
+  "private": false,
+  "version": "0.0.1",
+  "author": {
+    "email": "iamjc93@gmail.com",
+    "name": "Jan Chris Ogel"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
