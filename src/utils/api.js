@@ -1,6 +1,7 @@
 // /utils/api.js
 // const BASE_URL = 'https://rpc.d.buzz/'
-const BASE_URL = 'https://api.hive.blog'
+// const BASE_URL = 'https://api.hive.blog'
+const BASE_URL = 'https://rpc.d.buzz'
 
 // Example function for making a GET request
 export const fetchData = async (endpoint) => {

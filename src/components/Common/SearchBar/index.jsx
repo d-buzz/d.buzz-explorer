@@ -10,8 +10,11 @@ const SearchBar = () => {
   const handleSearch = () => {
     const inputLength = search.length
 
+    if (inputLength === 0) {
+      return null
+    }
+
     if (!isNaN(search) && parseInt(search) >= 1) {
-      console.log('block', inputLength)
       navigate(`/b/${search}`)
     } else if (inputLength === 40) {
       navigate(`/tx/${search}`)

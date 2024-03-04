@@ -1,11 +1,11 @@
 import BrandIcon from "../../Icon/BrandIcon/index.jsx"
-import SearchBar from "../SearchBar/index.jsx";
+import SearchBar from "../SearchBar/index.jsx"
 
 const Header = () => {
   return (
     <header>
       <div className="container" style={{textTransform: 'lowercase'}}>
-        <a id="logo" href='https://d.buzz/' className="keychainify-checked" style={{display: 'inline-block'}} >
+        <a id="logo" href='https://d.buzz/' className="keychainify-checked ml-1" style={{display: 'inline-block'}} >
           {/*<img src="https://hiveblocks.com/images/logo-hive.png" alt="Logo hive"/>*/}
           <BrandIcon />
           {/*Explorer*/}
