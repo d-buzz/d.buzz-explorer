@@ -68,6 +68,7 @@ const useDynamicGlobalProperties = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true)
         const {result} = await handleGetDynamicGlobalProperties()
         const {
           head_block_number,

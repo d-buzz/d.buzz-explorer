@@ -1,16 +1,16 @@
 import PropTypes from "prop-types"
 import {timeAgo} from "../../../../utils/helper.js"
 import {useState} from "react"
+import TrimTxId from "../../TrimTxId/index.jsx"
 
 const WitnessSetProperties = ({data, trx_id, timestamp, headBlockNumber}) => {
   const {extensions, owner, props: opProps} = data
 
   const [showDetails, setShowDetails] = useState(false)
-  const trimTrxId = trx_id.substring(0, 9)
   const handleDetailsToggle = () => setShowDetails(!showDetails)
 
   return <div className="op op-collapse op-mini" id={trx_id}>
-    <a className="tag tag-hash keychainify-checked" href={`/tx/${trx_id}`}>{trimTrxId}</a>
+    <TrimTxId trx_id={trx_id} />
 
 
     <div className="action">

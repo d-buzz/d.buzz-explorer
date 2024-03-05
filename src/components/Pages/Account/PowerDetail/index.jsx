@@ -86,7 +86,6 @@ const PowerDetail = ({account, rcAccount, accountReputation, totalVestingFundHiv
     if (rcAccount) {
 
       const result = rcAccount.rc_manabar.current_mana / parseInt(rcAccount.max_rc)
-      console.log('rc', rcAccount)
       setRcPercent((result * 100).toFixed(2))
     }
   }, [rcAccount])

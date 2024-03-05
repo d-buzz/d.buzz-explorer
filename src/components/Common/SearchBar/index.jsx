@@ -1,13 +1,13 @@
-import {IoSearch} from "react-icons/io5"
-import {TextInput} from "flowbite-react"
-import {useState} from "react"
-import {useNavigate} from 'react-router-dom'
+import {useEffect, useState} from "react"
+import {useNavigate, Navigate} from 'react-router-dom'
 
 const SearchBar = () => {
   const [search, setSearch] = useState('')
   const navigate = useNavigate()
+  const [link, setLink] = useState('')
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault()
     const inputLength = search.length
 
     if (inputLength === 0) {
@@ -15,40 +15,41 @@ const SearchBar = () => {
     }
 
     if (!isNaN(search) && parseInt(search) >= 1) {
-      navigate(`/b/${search}`)
+      setLink(`/b/${search}`)
     } else if (inputLength === 40) {
-      navigate(`/tx/${search}`)
+      setLink(`/tx/${search}`)
     } else if (search.startsWith('@') || inputLength < 16) {
       const trimmedSearch = search.startsWith('@') ? search.slice(1) : search
-      navigate(`/@${trimmedSearch}`)
+      setLink(`/@${trimmedSearch}`)
     }
   }
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      handleSearch()
+      handleSearch(event)
     }
   }
 
-  // <form id="search" action="/search" method="post" className="pull-right">
-  //   <input name="query" size="25" type="text" placeholder="Account, transaction, or block."/>
-  //   <button type="submit">
-  //     <i className="glyphicon glyphicon-search"></i>
-  //   </button>
-  // </form>
-
+  useEffect(() => {
+    if (link) {
+      navigate(link, { replace: true })
+    }
+  }, [link, navigate])
 
   return (
-    <TextInput
-      className={'pull-right'}
-      id="search"
-      type="text"
-      rightIcon={IoSearch}
-      placeholder="Account, transaction or block"
-      required
-      onChange={(e) => setSearch(e.target.value)}
-      onKeyDown={handleKeyDown}
-    />
+    <form id="search" method="post" className="pull-right">
+      <input
+        name="query"
+        size="25"
+        type="text"
+        placeholder="Account, transaction, or block."
+        onKeyDown={handleKeyDown}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      <button type="submit" onClick={handleSearch}>
+        <i className="glyphicon glyphicon-search"></i>
+      </button>
+    </form>
   )
 }
 

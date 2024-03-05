@@ -2,17 +2,16 @@ import PropTypes from "prop-types"
 import {timeAgo} from "../../../../utils/helper.js"
 import {useState} from "react"
 import KeyAuths from "../../KeyAuths/index.jsx"
+import TrimTxId from "../../TrimTxId/index.jsx"
 
 const AccountUpdate = ({data, trx_id, timestamp, headBlockNumber}) => {
   const {account, posting, memo_key, json_metadata} = data
-  const trimTrxId = trx_id.substring(0, 9)
-
   const [showDetails, setShowDetails] = useState(false)
 
   const handleDetailsToggle = () => setShowDetails(!showDetails)
 
   return <div className="op op-lead" id={trx_id}>
-    <a className="tag tag-hash keychainify-checked" href={`/tx/${trx_id}`}>{trimTrxId}</a>
+    <TrimTxId trx_id={trx_id} />
 
     <div className="action">
       <span className="account">{account}</span>{` `}

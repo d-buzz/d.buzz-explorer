@@ -2,17 +2,25 @@ import PropTypes from "prop-types"
 import {timeAgo} from "../../../../utils/helper.js"
 import {useState} from "react"
 import KeyAuths from "../../KeyAuths/index.jsx"
+import TrimTxId from "../../TrimTxId/index.jsx"
 
 const CreateClaimedAccount = ({data, trx_id, timestamp, headBlockNumber}) => {
-  const {owner, active, creator, posting, memo_key, extensions, json_metadata, new_account_name} = data
-
-  const trimTrxId = trx_id.substring(0, 9)
+  const {
+    owner,
+    active,
+    creator,
+    posting,
+    memo_key,
+    extensions,
+    json_metadata,
+    new_account_name
+  } = data
 
   const [showDetails, setShowDetails] = useState(false)
   const handleDetailsToggle = () => setShowDetails(!showDetails)
 
   return <div className="op op-collapse op-lead" id={trx_id}>
-    <a className="tag tag-hash keychainify-checked" href={`/tx/${trx_id}`}>{trimTrxId}</a>
+    <TrimTxId trx_id={trx_id} />
 
     <div className="action">
       <span className="account">{creator}</span>

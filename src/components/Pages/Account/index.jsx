@@ -3,10 +3,6 @@ import {useEffect, useState} from "react"
 import PowerDetail from "./PowerDetail/index.jsx"
 import ResourceCredits from "./ResourceCredits/index.jsx"
 import AccountDetail from "./AccountDetail/index.jsx"
-import JsonMetadata from "./JsonMetadata/index.jsx"
-import KeyHistory from "./KeyHistory/index.jsx"
-import Authorities from "./Authorities/index.jsx"
-import VotesFor from "./VotesFor/index.jsx"
 import HiveStat from "./HiveStat.jsx"
 import {isObjectEmpty, vestToHive} from "../../../utils/helper.js"
 import useDynamicGlobalProperties from "../../../hooks/useDynamicGlobalProperties.js"
@@ -29,8 +25,14 @@ const AccountPage = () => {
 
   const {accountHistory, loading: accountHistoryLoading} = useAccountHistory(trimmedUsername)
   const {rcAccount, loading: rcAccountLoading} = useFindRcAccount(trimmedUsername)
-  const {account, loading: accountLoading} = useAccount(trimmedUsername)
   const {accountReputation, loading: accountReputationLoading} = useAccountReputation(trimmedUsername)
+  const {
+    account,
+    propertyKeys,
+    loading: accountLoading,
+    jsonMetadata,
+    witnessVotes,
+  } = useAccount(trimmedUsername)
 
   useEffect(() => {
     if (!accountLoading && !isObjectEmpty(account)) {
@@ -78,11 +80,52 @@ const AccountPage = () => {
             accountReputation={accountReputation}
           />
           <ResourceCredits/>
-          <AccountDetail account={account}/>
-          <JsonMetadata/>
-          <KeyHistory/>
-          <Authorities/>
-          <VotesFor/>
+          <AccountDetail account={account} propertyKeys={propertyKeys}/>
+
+          <div className="well well-xs">
+            <span className="lead">JSON Metadata</span><br/>
+            <code style={{wordWrap: 'break-word', fontSize: '70%', display: 'block'}}>
+              {jsonMetadata}
+            </code>
+          </div>
+
+          <div className="well well-xs">
+            <a href="/@iamjco/~owners" className="keychainify-checked">Owner key history</a>
+          </div>
+
+          <div className="panel panel-warning">
+            <div className="panel-heading">
+              <h3 className="panel-title">Authorities</h3>
+            </div>
+            <div className="panel-body panel-table-plain" style={{paddingTop: '0', paddingBottom: '0'}}>
+              {
+                ['owner', 'active', 'posting', 'memo_key'].map((key) => {
+                  return Object.prototype.hasOwnProperty.call(account, key) && (
+                    <pre key={key}>
+                      {JSON.stringify(account[key].account_auths)}
+                      {JSON.stringify(account[key].key_auths)}
+                    </pre>
+                  )
+                })
+              }
+            </div>
+          </div>
+
+          <div className="well well-xs">
+            <span className="lead">{username} votes for:</span>
+            <br/>
+            <ol>
+              {
+                witnessVotes && witnessVotes.map((vote, index) => {
+                  return <li key={vote}>
+                    <a className="account keychainify-checked" href={`/@${vote}`}>
+                      {index + 1}. {vote}
+                    </a>
+                  </li>
+                })
+              }
+            </ol>
+          </div>
         </div>
 
         <div className="col-md-8">

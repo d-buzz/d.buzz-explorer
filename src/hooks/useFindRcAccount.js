@@ -23,6 +23,7 @@ const useFindRcAccount = (username) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true)
         const {result} = await handleFindRcAccount(username)
         const {rc_accounts} = await result
 

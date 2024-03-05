@@ -38,6 +38,7 @@ const useGetBlocks = (headBlockNumber) => {
     if (headBlockNumber) {
       const fetchData = async () => {
         try {
+          setLoading(true)
           const {result} = await handleGetBlock(headBlockNumber)
 
           if (!result) {

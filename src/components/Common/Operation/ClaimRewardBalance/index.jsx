@@ -1,25 +1,27 @@
 import PropTypes from "prop-types"
 import {timeAgo, vestToHive} from "../../../../utils/helper.js"
-import Identicon from "../../Identicon/index.jsx"
+import TrimTxId from "../../TrimTxId/index.jsx"
 
 const ClaimRewardBalance = ({data, trx_id, timestamp, headBlockNumber}) => {
   const {
     account,
     reward_hbd,
-    reward_hive,
+    // reward_hive,
     reward_vests,
     totalVestingShares,
     totalVestingFundHive,
   } = data
 
-  const trimTrxId = trx_id.substring(0, 9)
+  console.log(data)
 
   return <div className="op op-mini" id={trx_id}>
-    <a className="tag tag-hash keychainify-checked" href={`/tx/${trx_id}`}>{trimTrxId}</a>
+    <TrimTxId trx_id={trx_id}/>
 
     <div className="action">
       <span className="account">{account}</span>
       {` claim reward: `}
+      {reward_hbd}
+      {` and `}
       {vestToHive(reward_vests, totalVestingShares, totalVestingFundHive).toFixed(3)} HP
     </div>
 

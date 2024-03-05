@@ -23,7 +23,7 @@ const AdvanceTab = ({propertyKeys, content, activeVotes}) => {
                 return Object.prototype.hasOwnProperty.call(content, key) && (
                   <tr key={index}>
                     <th><samp>{key}</samp></th>
-                    <td>{content[key]}</td>
+                    <td>{JSON.stringify(content[key])}</td>
                   </tr>
                 )
               })

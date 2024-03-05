@@ -90,11 +90,12 @@ const useContent = (username, permlink) => {
     'post_id',
     'net_rshares',
     'author_curate_reward',
-  ];
+  ]
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true)
         const {result} = await handleGetContent(username, permlink)
 
         const {

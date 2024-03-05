@@ -26,6 +26,7 @@ const useAccountReputation = (username) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true)
         const {result} = await handleGetAccountReputation(username)
         const { account, reputation } = result[0] || {}
 

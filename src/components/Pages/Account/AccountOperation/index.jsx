@@ -7,8 +7,6 @@ const AccountOperation = ({operations, totalVestingShares, totalVestingFundHive}
 
       const {op, block, trx_id, timestamp} = opx[1]
       const [opType, opData] = op
-      opData['totalVestingShares'] = totalVestingShares
-      opData['totalVestingFundHive'] = totalVestingFundHive
 
       return <Operation
         key={index}
@@ -18,6 +16,8 @@ const AccountOperation = ({operations, totalVestingShares, totalVestingFundHive}
         headBlockNumber={block}
         opData={opData}
         timestamp={timestamp}
+        totalVestingFundHive={totalVestingFundHive}
+        totalVestingShares={totalVestingShares}
       />
     })}
   </>

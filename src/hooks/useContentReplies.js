@@ -69,6 +69,7 @@ const useContent = (username, permlink) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true)
         const {result} = await handleGetContentReplies(username, permlink)
 
         const {

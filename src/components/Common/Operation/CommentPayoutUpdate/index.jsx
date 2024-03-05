@@ -1,13 +1,12 @@
 import PropTypes from "prop-types"
 import {timeAgo} from "../../../../utils/helper.js"
+import TrimTxId from "../../TrimTxId/index.jsx"
 
 const ClaimRewardBalance = ({data, trx_id, timestamp, headBlockNumber}) => {
   const {author, permlink} = data
 
-  const trimTrxId = trx_id.substring(0, 9)
-
   return <div className="op op-mini" id={trx_id}>
-    <a className="tag tag-hash keychainify-checked" href={`/tx/${trx_id}`}>{trimTrxId}</a>
+    <TrimTxId trx_id={trx_id} />
 
     <div className="action">
       <span className="account">{author}</span>

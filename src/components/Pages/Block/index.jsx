@@ -2,9 +2,8 @@ import {useParams} from "react-router-dom"
 import useGetBlocks from "../../../hooks/useGetBlocks.js"
 import HomeOperation from "../Home/HomeOperation/index.jsx"
 import {formatDateTime} from "../../../utils/helper.js"
-import moment from "moment"
 import useDynamicGlobalProperties from "../../../hooks/useDynamicGlobalProperties.js"
-import {useState} from "react"
+import PageTitle from "../../Common/PageTitle/index.jsx"
 
 const BlockPage = () => {
   const {block} = useParams()
@@ -16,15 +15,12 @@ const BlockPage = () => {
     timestamp,
     count,
     error,
-    blocks,
   } = useGetBlocks(headBlockNumber)
   const {
     headBlockNumber: lastestHeadBlockNumber,
-    loading: dynamicGlobalLoading,
+    totalVestingShares,
+    totalVestingFundHive,
   } = useDynamicGlobalProperties()
-  const [toggle, setToggle] = useState(false)
-
-  const handleToggle = () => setToggle(!toggle)
 
   if (loading) {
     return <div className="container">
@@ -39,7 +35,7 @@ const BlockPage = () => {
       <div className='row'>
         <h2>{error}</h2>
         <p>
-          The latest head_block_numer is <b>{lastestHeadBlockNumber}</b>
+          The latest head_block_number is <b>{lastestHeadBlockNumber}</b>
         </p>
       </div>
     </div>
@@ -47,6 +43,7 @@ const BlockPage = () => {
 
   return (
     <div className="container">
+      <PageTitle title={''} />
       <h2>
         <small className="pull-right">
           <a href={`/b/${headBlockNumber - 1}`} className="keychainify-checked">Prev</a>
@@ -57,12 +54,12 @@ const BlockPage = () => {
       </h2>
       <hr/>
       <p className="lead text-muted">
-        {`${count} transactions in this block, produced at ${formatDateTime(timestamp ?? moment())}`}
+        {`${count} transactions in this block, produced at ${formatDateTime(timestamp)}`}
       </p>
 
       <HomeOperation
-        totalVestingFundHive={"301789702225.873285 VESTS"}
-        totalVestingShares={"173889896.060 HIVE"}
+        totalVestingFundHive={totalVestingFundHive}
+        totalVestingShares={totalVestingShares}
         transactions={transactions}
         timestamp={timestamp}
         headBlockNumber={headBlockNumber}

@@ -1,15 +1,20 @@
 import PropTypes from "prop-types"
 import {timeAgo} from "../../../../utils/helper.js"
+import TrimTxId from "../../TrimTxId/index.jsx"
 
 const Comment = ({data, trx_id, timestamp, headBlockNumber}) => {
-  const {body, title, author, permlink, json_metadata, parent_author, parent_permlink} = data
-
-  console.log(data)
-
-  const trimTrxId = trx_id.substring(0, 9)
+  const {
+    // body,
+    // title,
+    author,
+    permlink,
+    // json_metadata,
+    parent_author,
+    parent_permlink
+  } = data
 
   return <div className="op op-lead" id={trx_id}>
-    <a className="tag tag-hash keychainify-checked" href={`/tx/${trx_id}`}>{trimTrxId}</a>
+    <TrimTxId trx_id={trx_id} />
 
     <div className="action">
       <a className="account keychainify-checked" href={`/@${author}`}>{author}</a>

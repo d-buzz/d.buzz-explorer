@@ -53,6 +53,12 @@ export const formatHbdVestHiveToText = (data, withComma = false) => {
   return `${value} ${name}`
 }
 
+export const isNumber = (value) => typeof value === 'number' && !isNaN(value)
+
+export const convertVariableToText = (variable) => variable.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+
+export const isDatetime = (timestamp) => /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/.test(timestamp)
+
 // Other helper functions can be added as needed
 
 export const operationType = (type) => {

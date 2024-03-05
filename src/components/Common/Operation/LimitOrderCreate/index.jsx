@@ -1,16 +1,23 @@
 import PropTypes from "prop-types"
 import {formatDateTime, formatHbdVestHiveToText, timeAgo} from "../../../../utils/helper.js"
 import {useState} from "react"
+import TrimTxId from "../../TrimTxId/index.jsx"
 
 const LimitCancelCreate = ({data, trx_id, timestamp, headBlockNumber}) => {
-  const { owner, orderid, amount_to_sell, min_to_receive, fill_or_kill, expiration } = data
+  const {
+    owner,
+    orderid,
+    amount_to_sell,
+    min_to_receive,
+    fill_or_kill,
+    expiration
+  } = data
 
   const [showDetails, setShowDetails] = useState(false)
-  const trimTrxId = trx_id.substring(0, 9)
   const handleDetailsToggle = () => setShowDetails(!showDetails)
 
   return <div className="op op-collapse op-mini" id={trx_id}>
-    <a className="tag tag-hash keychainify-checked" href={`/tx/${trx_id}`}>{trimTrxId}</a>
+    <TrimTxId trx_id={trx_id} />
 
     <div className="action">
       <a className="account keychainify-checked" href={`/@${owner}`}>{`${owner}`}</a>

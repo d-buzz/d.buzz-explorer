@@ -3,8 +3,9 @@ import useContent from "../../../hooks/useContent.js"
 import {useState} from "react"
 import './style.css'
 import {formatDateTime, timeAgo} from "../../../utils/helper.js"
-import AdvanceTab from "./AdvanceTab/index.jsx";
-import RepliesContent from "./RepliesContent/index.jsx";
+import AdvanceTab from "./AdvanceTab/index.jsx"
+import RepliesContent from "./RepliesContent/index.jsx"
+import PageTitle from "../../Common/PageTitle/index.jsx"
 
 const Content = () => {
   const {username, permlink} = useParams()
@@ -25,6 +26,7 @@ const Content = () => {
     parentPermlink,
     created,
     pendingPayoutValue,
+    net_rshares,
     loading: contentLoading
   } = useContent(trimmedUsername, permlink)
 
@@ -40,6 +42,7 @@ const Content = () => {
 
   return (
     <div className="container">
+      <PageTitle title={`${title} | Dbuzz - Explorer`} />
       <div className='row'>
         <div className='col-md-3 col-md-push-9'></div>
         <div className='col-md-9 col-md-pull-3' style={{overflow: 'hidden', height: '100%'}}>
@@ -127,7 +130,7 @@ const Content = () => {
 
             <AdvanceTab activeVotes={activeVotes} propertyKeys={propertyKeys} content={content}/>
 
-            <RepliesContent/>
+            {/*<RepliesContent/>*/}
 
           </div>
         </div>

@@ -91,10 +91,84 @@ const useAccount = (username) => {
   const [tagsUsage, setTagsUsage] = useState(null)
   const [guestBloggers, setGuestBloggers] = useState(null)
 
+  const propertyKeys = [
+    'id',
+    'name',
+    // 'owner',
+    // 'active',
+    // 'posting',
+    'memo_key',
+    'json_metadata',
+    'posting_json_metadata',
+    'proxy',
+    'previous_owner_update',
+    'last_owner_update',
+    'last_account_update',
+    'created',
+    'mined',
+    'recovery_account',
+    'last_account_recovery',
+    'reset_account',
+    'comment_count',
+    'lifetime_vote_count',
+    'post_count',
+    'can_vote',
+    // 'voting_manabar',
+    'downvote_manabar',
+    'voting_power',
+    'balance',
+    'savings_balance',
+    'hbd_balance',
+    'hbd_seconds',
+    'hbd_seconds_last_update',
+    'hbd_last_interest_payment',
+    'savings_hbd_balance',
+    'savings_hbd_seconds',
+    'savings_hbd_seconds_last_update',
+    'savings_hbd_last_interest_payment',
+    'savings_withdraw_requests',
+    'reward_hbd_balance',
+    'reward_hive_balance',
+    'reward_vesting_balance',
+    'reward_vesting_hive',
+    'vesting_shares',
+    'delegated_vesting_shares',
+    'received_vesting_shares',
+    'vesting_withdraw_rate',
+    'post_voting_power',
+    'next_vesting_withdrawal',
+    'withdrawn',
+    'to_withdraw',
+    'withdraw_routes',
+    'pending_transfers',
+    'curation_rewards',
+    'posting_rewards',
+    'proxied_vsf_votes',
+    'witnesses_voted_for',
+    'last_post',
+    'last_root_post',
+    'last_vote_time',
+    'post_bandwidth',
+    'pending_claimed_accounts',
+    'governance_vote_expiration_ts',
+    'open_recurrent_transfers',
+    'vesting_balance',
+    // 'reputation',
+    // 'transfer_history',
+    // 'market_history',
+    // 'post_history',
+    // 'vote_history',
+    // 'other_history',
+    // 'witness_votes',
+    // 'tags_usage',
+    // 'guest_bloggers',
+  ]
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true)
         const {result} = await handleGetAccount(username)
 
         const {
@@ -167,7 +241,7 @@ const useAccount = (username) => {
           other_history,
           witness_votes,
           tags_usage,
-          guest_bloggers
+          guest_bloggers,
         } = result[0] || {}
 
         setId(id)
@@ -325,6 +399,7 @@ const useAccount = (username) => {
     tagsUsage,
     guestBloggers,
     loading,
+    propertyKeys,
   }
 }
 

@@ -8,8 +8,6 @@ const HomeOperation = ({transactions, totalVestingShares, totalVestingFundHive, 
 
       return operations.map((op, index) => {
         let [opType, opData] = op
-        opData['totalVestingShares'] = totalVestingShares
-        opData['totalVestingFundHive'] = totalVestingFundHive
 
         return <Operation
           key={index}
@@ -19,6 +17,8 @@ const HomeOperation = ({transactions, totalVestingShares, totalVestingFundHive, 
           headBlockNumber={headBlockNumber}
           index={index}
           transaction_id={transaction_id}
+          totalVestingFundHive={totalVestingFundHive}
+          totalVestingShares={totalVestingShares}
         />
       })
     })}

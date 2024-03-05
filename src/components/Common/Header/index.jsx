@@ -5,13 +5,13 @@ const Header = () => {
   return (
     <header>
       <div className="container" style={{textTransform: 'lowercase'}}>
-        <a id="logo" href='https://d.buzz/' className="keychainify-checked ml-1" style={{display: 'inline-block'}} >
+        <a id="logo" href='https://d.buzz/' className="keychainify-checked" style={{display: 'inline-block'}} >
           {/*<img src="https://hiveblocks.com/images/logo-hive.png" alt="Logo hive"/>*/}
           <BrandIcon />
           {/*Explorer*/}
         </a>
         <small>
-          <a href="https://signup.hive.io/" className="pull-right keychainify-checked">create account</a>
+          <a href="https://join.d.buzz/" className="pull-right keychainify-checked">create account</a>
         </small>
 
         <SearchBar />

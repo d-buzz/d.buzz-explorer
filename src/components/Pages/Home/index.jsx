@@ -3,6 +3,7 @@ import {formatDateTime, formatHbdVestHiveToText} from "../../../utils/helper.js"
 import useDynamicGlobalProperties from "../../../hooks/useDynamicGlobalProperties.js"
 import useGetBlocks from "../../../hooks/useGetBlocks.js"
 import HomeOperation from "./HomeOperation/index.jsx"
+import PageTitle from "../../Common/PageTitle/index.jsx"
 
 const HomePage = () => {
   const {
@@ -33,6 +34,7 @@ const HomePage = () => {
 
   return (
     <div className="container">
+      <PageTitle title={'Dbuzz - Explorer - Latest block'} />
       <div className='row'>
         <div className="col-md-3 col-md-push-9 dgp">
           <h4>Properties</h4>

@@ -16,10 +16,23 @@ import CommentBenefactorReward from "./CommentBenefactorReward/index.jsx"
 import AccountCreated from "./AccountCreated/index.jsx"
 import CreateClaimedAccount from "./CreateClaimedAccount/index.jsx"
 import LimitOrderCancel from "./LimitOrderCancel/index.jsx"
-import LimitOrderCreate from "./LimitOrderCreate/index.jsx";
-import WitnessSetProperties from "./WitnessSetProperties/index.jsx";
+import LimitOrderCreate from "./LimitOrderCreate/index.jsx"
+import WitnessSetProperties from "./WitnessSetProperties/index.jsx"
 
-const Operation = ({opType, opData, timestamp, transaction_id, headBlockNumber, index}) => {
+const Operation = ({
+  opType,
+  opData,
+  timestamp,
+  transaction_id,
+  headBlockNumber,
+  index,
+  totalVestingFundHive,
+  totalVestingShares
+}) => {
+
+  opData['totalVestingShares'] = totalVestingShares
+  opData['totalVestingFundHive'] = totalVestingFundHive
+
   if (opType === 'custom_json') {
     return <CustomJson
       data={opData}
@@ -228,6 +241,8 @@ Operation.propTypes = {
   opData: PropTypes.object.isRequired,
   timestamp: PropTypes.string.isRequired,
   transaction_id: PropTypes.string.isRequired,
+  totalVestingShares: PropTypes.string.isRequired,
+  totalVestingFundHive: PropTypes.string.isRequired,
   headBlockNumber: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
 }

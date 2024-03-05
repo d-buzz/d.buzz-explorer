@@ -24,6 +24,7 @@ const useAccountHistory = (username) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true)
         const {result} = await handleGetAccountHistory(username)
         const sorted = result.sort((a, b) => b[0] - a[0])
 
