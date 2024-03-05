@@ -2,12 +2,12 @@ import {useState, useEffect} from 'react'
 import {postData} from "../utils/api.js"
 
 
-const handleGetAccountHistory = async (username) => {
+const handleGetAccountHistory = async (username, latestId = -1, limit = 249) => {
   try {
     const dataToSend = {
       jsonrpc: '2.0',
       method: 'condenser_api.get_account_history',
-      params: [username, -1, 100],
+      params: [username, latestId, limit],
       id: 1,
     }
     return await postData(dataToSend)

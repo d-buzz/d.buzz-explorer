@@ -34,7 +34,7 @@ const HomePage = () => {
 
   return (
     <div className="container">
-      <PageTitle title={'Dbuzz - Explorer - Latest block'} />
+      <PageTitle title={'Latest block | Dbuzz - Explorer'} />
       <div className='row'>
         <div className="col-md-3 col-md-push-9 dgp">
           <h4>Properties</h4>

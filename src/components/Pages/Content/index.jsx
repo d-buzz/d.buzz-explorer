@@ -1,17 +1,13 @@
-import {useNavigate, useParams} from "react-router-dom"
+import {useParams} from "react-router-dom"
 import useContent from "../../../hooks/useContent.js"
-import {useState} from "react"
 import './style.css'
 import {formatDateTime, timeAgo} from "../../../utils/helper.js"
 import AdvanceTab from "./AdvanceTab/index.jsx"
-import RepliesContent from "./RepliesContent/index.jsx"
 import PageTitle from "../../Common/PageTitle/index.jsx"
 
 const Content = () => {
   const {username, permlink} = useParams()
   const trimmedUsername = username.startsWith('@') ? username.slice(1) : username
-
-  const navigate = useNavigate()
 
   const {
     content,
@@ -26,7 +22,6 @@ const Content = () => {
     parentPermlink,
     created,
     pendingPayoutValue,
-    net_rshares,
     loading: contentLoading
   } = useContent(trimmedUsername, permlink)
 

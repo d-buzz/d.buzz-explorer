@@ -43,7 +43,7 @@ const BlockPage = () => {
 
   return (
     <div className="container">
-      <PageTitle title={''} />
+      <PageTitle title={`${headBlockNumber} | Dbuzz - Explorer`} />
       <h2>
         <small className="pull-right">
           <a href={`/b/${headBlockNumber - 1}`} className="keychainify-checked">Prev</a>

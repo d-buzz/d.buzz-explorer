@@ -219,7 +219,6 @@ const useContent = (username, permlink) => {
     absRshares,
     activeVotes,
     activeVotesNameOnly,
-    propertyKeys,
   }
 }
 

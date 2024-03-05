@@ -4,6 +4,7 @@ import Operation from "../../Common/Operation/index.jsx"
 import useGetBlocks from "../../../hooks/useGetBlocks.js"
 import {formatDateTime, isDatetime, isNumber} from "../../../utils/helper.js"
 import useDynamicGlobalProperties from "../../../hooks/useDynamicGlobalProperties.js"
+import PageTitle from "../../Common/PageTitle/index.jsx"
 
 const TransactionPage = () => {
   const {transaction: trxId} = useParams()
@@ -35,6 +36,7 @@ const TransactionPage = () => {
 
   return (
     <div className="container">
+      <PageTitle title={`Tx ${trxId.substring(0, 9)} | Hive Block ${blockNum} | Dbuzz - Explorer`} />
       <h2>
         <strong>Tx</strong>
         {` `}

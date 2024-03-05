@@ -12,7 +12,6 @@ const ClaimRewardBalance = ({data, trx_id, timestamp, headBlockNumber}) => {
     totalVestingFundHive,
   } = data
 
-  console.log(data)
 
   return <div className="op op-mini" id={trx_id}>
     <TrimTxId trx_id={trx_id}/>

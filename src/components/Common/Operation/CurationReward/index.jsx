@@ -8,7 +8,7 @@ const CurationReward = ({data, trx_id, timestamp, headBlockNumber}) => {
     curator,
     comment_author,
     comment_permlink,
-    payout_must_be_claimed,
+    // payout_must_be_claimed,
     totalVestingShares,
     totalVestingFundHive,
   } = data

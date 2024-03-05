@@ -5,11 +5,11 @@ import TrimTxId from "../../TrimTxId/index.jsx"
 const CommentOptions = ({data, trx_id, timestamp, headBlockNumber}) => {
   const {
     author,
-    permlink,
-    extensions,
+    // permlink,
+    // extensions,
     allow_votes,
     percent_hbd,
-    max_accepted_payout,
+    // max_accepted_payout,
     allow_curation_rewards
   } = data
 

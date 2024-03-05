@@ -5,7 +5,7 @@ import PageTitle from "../Common/PageTitle/index.jsx"
 const Root = () => {
   return (
     <>
-      <PageTitle title={'Hive Explorer'} />
+      <PageTitle title={'Dbuzz - Explorer'} />
       <Header />
       <main id={'body'}>
         <Outlet/>

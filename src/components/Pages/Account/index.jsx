@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom"
+import {useParams, useSearchParams} from "react-router-dom"
 import {useEffect, useState} from "react"
 import PowerDetail from "./PowerDetail/index.jsx"
 import ResourceCredits from "./ResourceCredits/index.jsx"
@@ -14,6 +14,9 @@ import useAccountReputation from "../../../hooks/useAccountReputation.js"
 
 const AccountPage = () => {
   const {username} = useParams()
+  const [searchParams] = useSearchParams()
+  const currentPage = searchParams.get('page') || 1
+
   const trimmedUsername = username.startsWith('@') ? username.slice(1) : username
   const [stat, setStat] = useState([])
 
@@ -134,6 +137,44 @@ const AccountPage = () => {
             totalVestingShares={totalVestingShares}
             operations={accountHistory}
           />
+
+          <div className="text-center">
+            <nav>
+              <ul className="pagination">
+
+
+                {/*<li className="active"><a href="/@dbuzz?page=1" className="keychainify-checked">1</a></li>*/}
+                {/*<li><a href="/@dbuzz?page=2" className="keychainify-checked">2</a></li>*/}
+                {/*<li><a href="/@dbuzz?page=3" className="keychainify-checked">3</a></li>*/}
+                {/*<li><a href="/@dbuzz?page=4" className="keychainify-checked">4</a></li>*/}
+                {/*<li><a href="/@dbuzz?page=5" className="keychainify-checked">5</a></li>*/}
+                {/*<li><a href="/@dbuzz?page=6" className="keychainify-checked">6</a></li>*/}
+                {/*<li className="disabled"><a href="#" className="keychainify-checked">...</a></li>*/}
+                {/*<li><a href="/@dbuzz?page=3130" className="keychainify-checked">3130</a></li>*/}
+
+                <li>
+                  <a
+                    href={`/${username}?page=${parseInt(currentPage) === 1 ? currentPage : parseInt(currentPage) - 1}`}
+                    aria-label="Previous"
+                    className="keychainify-checked">
+                    <span aria-hidden="true">«</span>
+                  </a>
+                </li>
+                <li className="active">
+                  <a href={`/${username}?page=${currentPage}`} className="keychainify-checked">{currentPage}</a>
+                </li>
+                <li>
+                  <a
+                    href={`/${username}?page=${parseInt(currentPage) + 1}`}
+                    aria-label="Next"
+                    className="keychainify-checked">
+                    <span aria-hidden="true">»</span>
+                  </a>
+                </li>
+
+              </ul>
+            </nav>
+          </div>
         </div>
       </div>
     </div>
