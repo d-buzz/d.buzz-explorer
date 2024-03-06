@@ -59,6 +59,8 @@ export const convertVariableToText = (variable) => variable.replace(/_/g, ' ').r
 
 export const isDatetime = (timestamp) => /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/.test(timestamp)
 
+export const usernameWithoutAt = (username) => username.startsWith('@') ? username.slice(1) : username
+
 // Other helper functions can be added as needed
 
 export const operationType = (type) => {

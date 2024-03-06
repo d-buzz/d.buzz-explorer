@@ -7,9 +7,8 @@ import {
   vestToHive} from "../../../../utils/helper.js"
 import moment from "moment"
 
-const PowerDetail = ({account, rcAccount, accountReputation, totalVestingFundHive, totalVestingShares}) => {
-  const [currentUpvoteMana, setCurrentUpvoteMana] = useState(0)
-  const [currentDownvoteMana, setCurrentDownvoteMana] = useState(0)
+const PowerDetail = ({account, rcAccount, accountReputation, totalVestingFundHive, totalVestingShares, computeMana}) => {
+
   const [rcPercent, setRcPercent] = useState(0)
   const [effectiveHP, setEffectiveHP] = useState(0)
   // const [effectiveHPTidy, setEffectiveHPTidy] = useState('')
@@ -19,60 +18,7 @@ const PowerDetail = ({account, rcAccount, accountReputation, totalVestingFundHiv
   const [receivedVestingShares, setReceivedVestingShares] = useState(0)
   const [reputation, setReputation] = useState(10)
 
-  useEffect(() => {
-    if (account && Object.keys(account).length !== 0) {
-      try {
-        let delegated = parseFloat(account.delegated_vesting_shares)
-        let received = parseFloat(account.received_vesting_shares)
-        let vesting = parseFloat(account.vesting_shares)
-        let withdrawRate = 0
-
-        setDelegatedVestingShares(delegated)
-        setReceivedVestingShares(received)
-        setVestingShares(vesting)
-
-        if (parseInt(account.vesting_withdraw_rate) > 0) {
-          withdrawRate = Math.min(
-            parseInt(account.vesting_withdraw_rate),
-            parseInt((account.to_withdraw - account.withdrawn) / 1000000)
-          )
-        }
-
-        let totalVest = vesting + received - delegated - withdrawRate
-
-        let maxMana = Number(totalVest * Math.pow(10, 6))
-        const maxManaDown = maxMana * 0.25
-        let delta = (Date.now() / 1000 - account.voting_manabar.last_update_time)
-
-        setEffectiveHP(formatVestToHive(totalVest))
-        // setEffectiveHPTidy(tidyNumber(formatVestToHive(totalVest)))
-
-        let currentMana = Number(account.voting_manabar.current_mana) + (delta * maxMana / 432000)
-        let percentage = Math.round(currentMana / maxMana * 10000)
-        let percent = (Math.min(Math.max(percentage, 0), 10000) / 100).toFixed(2)
-
-        if (!isFinite(percentage)) percentage = 0
-        if (percentage > 10000) percentage = 10000
-        else if (percentage < 0) percentage = 0
-
-        setCurrentUpvoteMana(percent)
-
-        let deltaDown = (Date.now() / 1000 - account.downvote_manabar.last_update_time)
-        let currentManaDown = Number(account.downvote_manabar.current_mana) + (deltaDown * maxManaDown / 432000)
-        let percentageDown = Math.round(currentManaDown / maxManaDown * 10000)
-
-        if (!isFinite(percentageDown)) percentageDown = 0
-        if (percentageDown > 10000) percentageDown = 10000
-        else if (percentageDown < 0) percentageDown = 0
-
-        let percentDown = (Math.min(Math.max(percentageDown, 0), 10000) / 100).toFixed(2)
-
-        setCurrentDownvoteMana(percentDown)
-      } catch (error) {
-        console.error('Error making the request:', error)
-      }
-    }
-  }, [account])
+  const { currentDownvoteMana, currentUpvoteMana, totalVest} = computeMana
 
   useEffect(() => {
     if (!isObjectEmpty(accountReputation)) {
@@ -95,11 +41,11 @@ const PowerDetail = ({account, rcAccount, accountReputation, totalVestingFundHiv
 
       <h5 className="text-center" style={{marginBottom: '0.25em'}}>Vote Weight</h5>
       <p className="lead text-center" style={{marginBottom: '0'}}>
-        {Math.round(effectiveHP).toLocaleString()} HP
+        {Math.round(formatVestToHive(totalVest)).toLocaleString()} HP
       </p>
 
       <div className="text-muted text-center" style={{color: '#bbb', fontSize: '0.8em'}}>
-        {Math.round(formatVestToHive(vestingShares)).toLocaleString()}
+        {Math.round(formatVestToHive(account.vesting_shares)).toLocaleString()}
         {` + `}
         {Math.round(formatVestToHive(receivedVestingShares)).toLocaleString()}
         {` - `}
@@ -121,8 +67,8 @@ const PowerDetail = ({account, rcAccount, accountReputation, totalVestingFundHiv
       </div>
 
       <div className="text-muted text-center" style={{color: '#bbb', fontSize: '0.8em'}}>
-        {Math.round(((currentUpvoteMana / 100) * effectiveHP)).toLocaleString()}M
-        / {Math.round(effectiveHP).toLocaleString()}M
+        {Math.round(((currentUpvoteMana / 100) * formatVestToHive(totalVest))).toLocaleString()}M
+        / {Math.round(formatVestToHive(totalVest)).toLocaleString()}M
       </div>
 
       <h5 className="text-center" style={{marginBottom: '0.25em'}}>Downvote Power</h5>
@@ -198,6 +144,7 @@ const PowerDetail = ({account, rcAccount, accountReputation, totalVestingFundHiv
 
 PowerDetail.propTypes = {
   account: PropTypes.object.isRequired,
+  computeMana: PropTypes.object.isRequired,
   totalVestingShares: PropTypes.string.isRequired,
   totalVestingFundHive: PropTypes.string.isRequired,
   rcAccount: PropTypes.object.isRequired,

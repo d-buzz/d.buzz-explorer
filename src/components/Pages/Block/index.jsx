@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom"
+import {Link, useParams} from "react-router-dom"
 import useGetBlocks from "../../../hooks/useGetBlocks.js"
 import HomeOperation from "../Home/HomeOperation/index.jsx"
 import {formatDateTime} from "../../../utils/helper.js"
@@ -46,9 +46,9 @@ const BlockPage = () => {
       <PageTitle title={`${headBlockNumber} | Dbuzz - Explorer`} />
       <h2>
         <small className="pull-right">
-          <a href={`/b/${headBlockNumber - 1}`} className="keychainify-checked">Prev</a>
+          <Link to={`/b/${headBlockNumber - 1}`} className="keychainify-checked">Prev</Link>
           {` | `}
-          <a href={`/b/${headBlockNumber + 1}`} className="keychainify-checked">Next</a>
+          <Link to={`/b/${headBlockNumber + 1}`} className="keychainify-checked">Next</Link>
         </small>
         Block <small style={{fontSize: '90%'}}>{headBlockNumber.toLocaleString()}</small>
       </h2>

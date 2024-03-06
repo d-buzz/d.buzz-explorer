@@ -1,5 +1,6 @@
 import PropTypes from "prop-types"
 import {timeAgo, vestToHive} from "../../../../utils/helper.js"
+import {Link} from "react-router-dom"
 
 const AuthorReward = ({data, trx_id, timestamp, headBlockNumber}) => {
   const {
@@ -26,13 +27,13 @@ const AuthorReward = ({data, trx_id, timestamp, headBlockNumber}) => {
     <div className="action">
       <span className="account">{author}</span>{` `}
       author reward: {hbd_payout} and {formatVestToHive(vesting_payout)} HP for {` `}
-      <a href={`/@${author}/${permlink}`} className="keychainify-checked">{`@${author}/${permlink}`}</a>
+      <Link to={`/@${author}/${permlink}`} className="keychainify-checked">{`@${author}/${permlink}`}</Link>
     </div>
 
     <div className="foot">
-      <a href={`/b/${headBlockNumber}#${trx_id}`} className="keychainify-checked">
+      <Link to={`/b/${headBlockNumber}#${trx_id}`} className="keychainify-checked">
         <time className="timeago2" dateTime={timestamp} title={timestamp}>{timeAgo(timestamp)}</time>
-      </a>
+      </Link>
     </div>
   </div>
 }

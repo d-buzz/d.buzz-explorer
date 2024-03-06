@@ -2,6 +2,7 @@ import PropTypes from "prop-types"
 import {timeAgo} from "../../../../utils/helper.js"
 import {useState} from "react"
 import TrimTxId from "../../TrimTxId/index.jsx"
+import {Link} from "react-router-dom"
 
 const WitnessSetProperties = ({data, trx_id, timestamp, headBlockNumber}) => {
   const {extensions, owner, props: opProps} = data
@@ -14,7 +15,7 @@ const WitnessSetProperties = ({data, trx_id, timestamp, headBlockNumber}) => {
 
 
     <div className="action">
-      <a className="account keychainify-checked" href={`/@${owner}`}>{`${owner}`}</a>
+      <Link className="account keychainify-checked" to={`/@${owner}`}>{`${owner}`}</Link>
       {` witness_set_properties `}
       <a onClick={handleDetailsToggle} className="keychainify-checked cursor-pointer">(show details)</a>
       <table className="table table-condensed hash3 ultra-condensed">
@@ -69,9 +70,9 @@ const WitnessSetProperties = ({data, trx_id, timestamp, headBlockNumber}) => {
     </div>
 
     <div className="foot">
-      <a href={`/b/${headBlockNumber}#${trx_id}`} className="keychainify-checked">
+      <Link to={`/b/${headBlockNumber}#${trx_id}`} className="keychainify-checked">
         <time className="timeago2" dateTime={timestamp} title={timestamp}>{timeAgo(timestamp)}</time>
-      </a>
+      </Link>
     </div>
   </div>
 }

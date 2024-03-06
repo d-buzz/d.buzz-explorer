@@ -1,6 +1,7 @@
 import PropTypes from "prop-types"
 import {timeAgo} from "../../../../utils/helper.js"
 import TrimTxId from "../../TrimTxId/index.jsx"
+import {Link} from "react-router-dom"
 
 const CommentOptions = ({data, trx_id, timestamp, headBlockNumber}) => {
   const {
@@ -17,18 +18,18 @@ const CommentOptions = ({data, trx_id, timestamp, headBlockNumber}) => {
     <TrimTxId trx_id={trx_id} />
 
     <div className="action">
-      <a className="account keychainify-checked" href={`/@${author}`}>
+      <Link className="account keychainify-checked" to={`/@${author}`}>
         {author}
-      </a>
+      </Link>
       {` comment options: ${percent_hbd / 100}% HBD,`}
       {` allow votes: ${allow_votes ? 'true' : 'false'},`}
       {` allow curation rewards: ${allow_curation_rewards ? 'true' : 'false'}`}
     </div>
 
     <div className="foot">
-      <a href={`/b/${headBlockNumber}#${trx_id}`} className="keychainify-checked">
+      <Link to={`/b/${headBlockNumber}#${trx_id}`} className="keychainify-checked">
         <time className="timeago2" dateTime={timestamp} title={timestamp}>{timeAgo(timestamp)}</time>
-      </a>
+      </Link>
     </div>
   </div>
 }

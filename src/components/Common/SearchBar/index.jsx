@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react"
 import {useNavigate} from 'react-router-dom'
+import {usernameWithoutAt} from "../../../utils/helper.js"
 
 const SearchBar = () => {
   const [search, setSearch] = useState('')
@@ -19,8 +20,7 @@ const SearchBar = () => {
     } else if (inputLength === 40) {
       setLink(`/tx/${search}`)
     } else if (search.startsWith('@') || inputLength < 16) {
-      const trimmedSearch = search.startsWith('@') ? search.slice(1) : search
-      setLink(`/@${trimmedSearch}`)
+      setLink(`/@${usernameWithoutAt(search)}`)
     }
   }
 

@@ -1,6 +1,7 @@
 import PropTypes from "prop-types"
 import {timeAgo} from "../../../../utils/helper.js"
 import TrimTxId from "../../TrimTxId/index.jsx"
+import {Link} from "react-router-dom"
 
 const CustomJson = ({data, trx_id, timestamp, headBlockNumber}) => {
   const {id, json, required_auths, required_posting_auths} = data
@@ -10,7 +11,7 @@ const CustomJson = ({data, trx_id, timestamp, headBlockNumber}) => {
     <TrimTxId trx_id={trx_id} />
 
     <div className="action">
-      <a className="account keychainify-checked" href={`/@${authName}`}>{authName}</a>
+      <Link className="account keychainify-checked" to={`/@${authName}`}>{authName}</Link>
       <span className="account"></span>
       {` custom json `}
       <table className="table table-condensed hash3 ultra-condensed">
@@ -65,9 +66,9 @@ const CustomJson = ({data, trx_id, timestamp, headBlockNumber}) => {
     </div>
 
     <div className="foot">
-      <a href={`/b/${headBlockNumber}#${trx_id}`} className="keychainify-checked">
+      <Link to={`/b/${headBlockNumber}#${trx_id}`} className="keychainify-checked">
         <time className="timeago2" dateTime={timestamp} title={timestamp}>{timeAgo(timestamp)}</time>
-      </a>
+      </Link>
     </div>
   </div>
 }

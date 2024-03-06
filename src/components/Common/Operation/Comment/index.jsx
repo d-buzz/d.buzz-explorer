@@ -1,6 +1,7 @@
 import PropTypes from "prop-types"
 import {timeAgo} from "../../../../utils/helper.js"
 import TrimTxId from "../../TrimTxId/index.jsx"
+import {Link} from "react-router-dom"
 
 const Comment = ({data, trx_id, timestamp, headBlockNumber}) => {
   const {
@@ -17,29 +18,29 @@ const Comment = ({data, trx_id, timestamp, headBlockNumber}) => {
     <TrimTxId trx_id={trx_id} />
 
     <div className="action">
-      <a className="account keychainify-checked" href={`/@${author}`}>{author}</a>
+      <Link className="account keychainify-checked" to={`/@${author}`}>{author}</Link>
       {
         parent_author && parent_permlink
           ? <>
             {` replied to `}
-            <a href={`/@${parent_author}/${parent_permlink}`} className="keychainify-checked">
+            <Link to={`/@${parent_author}/${parent_permlink}`} className="keychainify-checked">
               {`@${parent_author}/${parent_permlink}`}
-            </a>
+            </Link>
           </>
           : <>
             {` replied to `}
-            <a href={`/@${author}/${permlink}`} className="keychainify-checked">
+            <Link to={`/@${author}/${permlink}`} className="keychainify-checked">
               {`@${author}/${permlink}`}
-            </a>
+            </Link>
           </>
       }
 
     </div>
 
     <div className="foot">
-      <a href={`/b/${headBlockNumber}#${trx_id}`} className="keychainify-checked">
+      <Link to={`/b/${headBlockNumber}#${trx_id}`} className="keychainify-checked">
         <time className="timeago2" dateTime={timestamp} title={timestamp}>{timeAgo(timestamp)}</time>
-      </a>
+      </Link>
     </div>
   </div>
 }

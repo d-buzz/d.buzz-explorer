@@ -1,10 +1,10 @@
-import {useParams, useSearchParams} from "react-router-dom"
+import {Link, useParams, useSearchParams} from "react-router-dom"
 import {useEffect, useState} from "react"
 import PowerDetail from "./PowerDetail/index.jsx"
 import ResourceCredits from "./ResourceCredits/index.jsx"
 import AccountDetail from "./AccountDetail/index.jsx"
 import HiveStat from "./HiveStat.jsx"
-import {isObjectEmpty, vestToHive} from "../../../utils/helper.js"
+import {convertVariableToText, isObjectEmpty, usernameWithoutAt, vestToHive} from "../../../utils/helper.js"
 import useDynamicGlobalProperties from "../../../hooks/useDynamicGlobalProperties.js"
 import AccountOperation from "../Account/AccountOperation/index.jsx"
 import useAccountHistory from "../../../hooks/useAccountHistory.js"
@@ -17,7 +17,7 @@ const AccountPage = () => {
   const [searchParams] = useSearchParams()
   const currentPage = searchParams.get('page') || 1
 
-  const trimmedUsername = username.startsWith('@') ? username.slice(1) : username
+  const trimmedUsername = usernameWithoutAt(username)
   const [stat, setStat] = useState([])
 
   const {
@@ -35,6 +35,7 @@ const AccountPage = () => {
     loading: accountLoading,
     jsonMetadata,
     witnessVotes,
+    computeMana,
   } = useAccount(trimmedUsername)
 
   useEffect(() => {
@@ -76,12 +77,14 @@ const AccountPage = () => {
       <div className="row">
         <div className="col-md-4">
           <PowerDetail
+            computeMana={computeMana()}
             account={account}
             rcAccount={rcAccount}
             totalVestingShares={totalVestingShares}
             totalVestingFundHive={totalVestingFundHive}
             accountReputation={accountReputation}
           />
+
           <ResourceCredits/>
           <AccountDetail account={account} propertyKeys={propertyKeys}/>
 
@@ -93,7 +96,7 @@ const AccountPage = () => {
           </div>
 
           <div className="well well-xs">
-            <a href="/@iamjco/~owners" className="keychainify-checked">Owner key history</a>
+            <Link to="/@iamjco/~owners" className="keychainify-checked">Owner key history</Link>
           </div>
 
           <div className="panel panel-warning">
@@ -104,31 +107,53 @@ const AccountPage = () => {
               {
                 ['owner', 'active', 'posting', 'memo_key'].map((key) => {
                   return Object.prototype.hasOwnProperty.call(account, key) && (
-                    <pre key={key}>
-                      {JSON.stringify(account[key].account_auths)}
-                      {JSON.stringify(account[key].key_auths)}
-                    </pre>
+                    <table key={key} className="table table-condensed ultra-condensed" style={{margin: '6px 0 8px'}}>
+                      <thead>
+                        <tr>
+                          <th colSpan="2">
+                            <span style={{fontSize: '1.2em', fontWeight: '200'}}>{convertVariableToText(key)}</span>
+                          </th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <tr>
+                          <td className="text-right"><span className="glyphicon glyphicon-lock"></span></td>
+                          <td>
+                            <samp className="mono"  style={{fontSize: '11px'}}>
+                              {JSON.stringify(account[key])}
+                            </samp>
+                          </td>
+                        </tr>
+                      </tbody>
+
+                    </table>
                   )
                 })
               }
             </div>
           </div>
 
-          <div className="well well-xs">
-            <span className="lead">{username} votes for:</span>
-            <br/>
-            <ol>
-              {
-                witnessVotes && witnessVotes.map((vote, index) => {
-                  return <li key={vote}>
-                    <a className="account keychainify-checked" href={`/@${vote}`}>
-                      {index + 1}. {vote}
-                    </a>
-                  </li>
-                })
-              }
-            </ol>
-          </div>
+          {
+            witnessVotes.length > 0 && (
+              <div className="well well-xs">
+                <span className="lead">{username} votes for:</span>
+                <br/>
+                <ol>
+                  {
+                    witnessVotes.map((vote) => {
+                      return <li key={vote}>
+                        <Link className="account keychainify-checked" to={`/@${vote}`}>
+                          {vote}
+                        </Link>
+                      </li>
+                    })
+                  }
+                </ol>
+              </div>
+            )
+          }
+
         </div>
 
         <div className="col-md-8">
@@ -141,37 +166,25 @@ const AccountPage = () => {
           <div className="text-center">
             <nav>
               <ul className="pagination">
-
-
-                {/*<li className="active"><a href="/@dbuzz?page=1" className="keychainify-checked">1</a></li>*/}
-                {/*<li><a href="/@dbuzz?page=2" className="keychainify-checked">2</a></li>*/}
-                {/*<li><a href="/@dbuzz?page=3" className="keychainify-checked">3</a></li>*/}
-                {/*<li><a href="/@dbuzz?page=4" className="keychainify-checked">4</a></li>*/}
-                {/*<li><a href="/@dbuzz?page=5" className="keychainify-checked">5</a></li>*/}
-                {/*<li><a href="/@dbuzz?page=6" className="keychainify-checked">6</a></li>*/}
-                {/*<li className="disabled"><a href="#" className="keychainify-checked">...</a></li>*/}
-                {/*<li><a href="/@dbuzz?page=3130" className="keychainify-checked">3130</a></li>*/}
-
                 <li>
-                  <a
-                    href={`/${username}?page=${parseInt(currentPage) === 1 ? currentPage : parseInt(currentPage) - 1}`}
+                  <Link
+                    to={`/${username}?page=${parseInt(currentPage) === 1 ? currentPage : parseInt(currentPage) - 1}`}
                     aria-label="Previous"
                     className="keychainify-checked">
                     <span aria-hidden="true">«</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="active">
-                  <a href={`/${username}?page=${currentPage}`} className="keychainify-checked">{currentPage}</a>
+                  <Link to={`/${username}?page=${currentPage}`} className="keychainify-checked">{currentPage}</Link>
                 </li>
                 <li>
-                  <a
-                    href={`/${username}?page=${parseInt(currentPage) + 1}`}
+                  <Link
+                    to={`/${username}?page=${parseInt(currentPage) + 1}`}
                     aria-label="Next"
                     className="keychainify-checked">
                     <span aria-hidden="true">»</span>
-                  </a>
+                  </Link>
                 </li>
-
               </ul>
             </nav>
           </div>

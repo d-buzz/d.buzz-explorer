@@ -4,6 +4,7 @@ import useDynamicGlobalProperties from "../../../hooks/useDynamicGlobalPropertie
 import useGetBlocks from "../../../hooks/useGetBlocks.js"
 import HomeOperation from "./HomeOperation/index.jsx"
 import PageTitle from "../../Common/PageTitle/index.jsx"
+import {Link} from "react-router-dom"
 
 const HomePage = () => {
   const {
@@ -49,16 +50,16 @@ const HomePage = () => {
             <h3>Head block</h3>
             <div className="val">
               <samp>
-                <a href={`/b/${headBlockNumber}`} className="keychainify-checked">
+                <Link to={`/b/${headBlockNumber}`} className="keychainify-checked">
                   #{headBlockNumber.toLocaleString()}
-                </a>
+                </Link>
               </samp>
             </div>
             <hr/>
             <h3>Current witness</h3>
             <div className="val">
               <samp>
-                <a href={`/@${currentWitness}`} className="keychainify-checked">@{currentWitness}</a>
+                <Link to={`/@${currentWitness}`} className="keychainify-checked">@{currentWitness}</Link>
               </samp>
             </div>
             <hr/>
@@ -82,9 +83,9 @@ const HomePage = () => {
             <h3>Last irreversible block num</h3>
             <div className="val">
               <samp>
-                <a href={`/b/${headBlockNumber}`} className="keychainify-checked">
+                <Link to={`/b/${headBlockNumber}`} className="keychainify-checked">
                   #{headBlockNumber.toLocaleString()}
-                </a>
+                </Link>
               </samp>
             </div>
             <hr/>

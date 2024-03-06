@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom"
+import {Link, useParams} from "react-router-dom"
 import useGetTransaction from "../../../hooks/useGetTransaction.js"
 import Operation from "../../Common/Operation/index.jsx"
 import useGetBlocks from "../../../hooks/useGetBlocks.js"
@@ -48,9 +48,9 @@ const TransactionPage = () => {
       </h2>
       <p className="lead text-muted">
         {`Included in block `}
-        <a href={`/b/${blockNum}#${transactionId}`} className="keychainify-checked">
+        <Link to={`/b/${blockNum}#${transactionId}`} className="keychainify-checked">
           <strong>{blockNum.toLocaleString()}</strong>
-        </a>
+        </Link>
         {` at ${formatDateTime(timestamp)} (UTC)`}
       </p>
 

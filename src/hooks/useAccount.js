@@ -164,6 +164,49 @@ const useAccount = (username) => {
     // 'guest_bloggers',
   ]
 
+  const computeMana = () => {
+    let delegated = parseFloat(delegatedVestingShares)
+    let received = parseFloat(receivedVestingShares)
+    let vesting = parseFloat(vestingShares)
+    let withdrawRate = 0
+
+    if (parseInt(vestingWithdrawRate) > 0) {
+      withdrawRate = Math.min(
+        parseInt(vestingWithdrawRate),
+        parseInt((toWithdraw - withdrawn) / 1000000)
+      )
+    }
+
+    const totalVest = vesting + received - delegated - withdrawRate
+
+    const maxMana = Number(totalVest * Math.pow(10, 6))
+    const maxManaDown = maxMana * 0.25
+    let delta = (Date.now() / 1000 - votingManabar.last_update_time)
+
+    const currentMana = Number(votingManabar.current_mana) + (delta * maxMana / 432000)
+    let percentage = Math.round(currentMana / maxMana * 10000)
+    const percent = (Math.min(Math.max(percentage, 0), 10000) / 100).toFixed(2)
+
+    if (!isFinite(percentage)) percentage = 0
+    if (percentage > 10000) percentage = 10000
+    else if (percentage < 0) percentage = 0
+
+    let deltaDown = (Date.now() / 1000 - downvoteManabar.last_update_time)
+    let currentManaDown = Number(downvoteManabar.current_mana) + (deltaDown * maxManaDown / 432000)
+    let percentageDown = Math.round(currentManaDown / maxManaDown * 10000)
+
+    if (!isFinite(percentageDown)) percentageDown = 0
+    if (percentageDown > 10000) percentageDown = 10000
+    else if (percentageDown < 0) percentageDown = 0
+
+    let percentDown = (Math.min(Math.max(percentageDown, 0), 10000) / 100).toFixed(2)
+
+    return {
+      currentDownvoteMana: percentDown,
+      currentUpvoteMana: percent,
+      totalVest: totalVest,
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -400,6 +443,7 @@ const useAccount = (username) => {
     guestBloggers,
     loading,
     propertyKeys,
+    computeMana,
   }
 }
 

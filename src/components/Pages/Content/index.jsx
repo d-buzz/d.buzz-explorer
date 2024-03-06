@@ -1,13 +1,13 @@
-import {useParams} from "react-router-dom"
+import * as React from "react"
+import {Link, useParams} from "react-router-dom"
 import useContent from "../../../hooks/useContent.js"
 import './style.css'
-import {formatDateTime, timeAgo} from "../../../utils/helper.js"
+import {formatDateTime, timeAgo, usernameWithoutAt} from "../../../utils/helper.js"
 import AdvanceTab from "./AdvanceTab/index.jsx"
 import PageTitle from "../../Common/PageTitle/index.jsx"
 
 const Content = () => {
   const {username, permlink} = useParams()
-  const trimmedUsername = username.startsWith('@') ? username.slice(1) : username
 
   const {
     content,
@@ -23,10 +23,8 @@ const Content = () => {
     created,
     pendingPayoutValue,
     loading: contentLoading
-  } = useContent(trimmedUsername, permlink)
+  } = useContent(usernameWithoutAt(username), permlink)
 
-
-  console.log(content)
   if (contentLoading) {
     return <div className="container">
       <div className='row'>
@@ -67,9 +65,9 @@ const Content = () => {
               <hr/>
               <p style={{fontStyle: 'italic', border: '1px solid #CCC', padding: '12px', background: '#F8F8F8'}}>
                 {`Viewing a response to: `}
-                <a href={`/@${parentAuthor}/${parentPermlink}`} className="keychainify-checked">
+                <Link to={`/@${parentAuthor}/${parentPermlink}`} className="keychainify-checked">
                   {`@${parentAuthor}/${parentPermlink}`}
-                </a>
+                </Link>
               </p>
             </>
           )}
@@ -83,9 +81,9 @@ const Content = () => {
                   <span className="glyphicon glyphicon-tag"></span>{category}
                 </span>
                 ·
-                <a style={{fontWeight: 500}} href={`/${username}`} className="keychainify-checked">
+                <Link style={{fontWeight: 500}} to={`/${username}`} className="keychainify-checked">
                   {username}
-                </a>
+                </Link>
                 ·
                 <time title={formatDateTime(created)}>{timeAgo(created)}</time>
               </div>
@@ -115,10 +113,10 @@ const Content = () => {
               <div className="post-votes">
                 {`👍 `}
                 {activeVotesNameOnly().map((name, index) => {
-                  return <>
-                    <a key={index} className="account keychainify-checked" href={`/@${name}`}>{name}</a>
+                  return <React.Fragment key={index}>
+                    <Link key={index} className="account keychainify-checked" to={`/@${name}`}>{name}</Link>
                     {`, `}
-                  </>
+                  </React.Fragment>
                 })}
               </div>
             </div>

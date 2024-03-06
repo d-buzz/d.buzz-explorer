@@ -1,5 +1,6 @@
 import PropTypes from "prop-types"
 import {convertVariableToText, formatDateTime, isDatetime, isNumber} from "../../../../utils/helper.js"
+import {Link} from "react-router-dom"
 
 const AccountDetail = ({account, propertyKeys}) => {
   return (
@@ -42,7 +43,7 @@ const AccountDetail = ({account, propertyKeys}) => {
                                     ? account[key].reduce((acc, current) => parseInt(acc) + parseInt(current), 0)
                                     : (
                                       key === 'recovery_account'
-                                        ? <a href={`/@${account[key]}`}>{account[key]}</a>
+                                        ? <Link to={`/@${account[key]}`}>{account[key]}</Link>
                                         : (
                                           account[key] === ""
                                             ? <samp>{`""`}</samp>
