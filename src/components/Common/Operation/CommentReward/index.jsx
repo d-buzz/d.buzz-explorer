@@ -19,7 +19,7 @@ const ClaimRewardBalance = ({data, trx_id, timestamp, headBlockNumber}) => {
 
     <div className="action">
       <span className="account">{author}</span>
-      comment_reward
+      {` comment_reward `}
       <table className="table table-condensed hash3 ultra-condensed">
         <tbody>
           <tr>

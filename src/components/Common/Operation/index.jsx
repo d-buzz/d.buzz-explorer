@@ -18,6 +18,7 @@ import CreateClaimedAccount from "./CreateClaimedAccount/index.jsx"
 import LimitOrderCancel from "./LimitOrderCancel/index.jsx"
 import LimitOrderCreate from "./LimitOrderCreate/index.jsx"
 import WitnessSetProperties from "./WitnessSetProperties/index.jsx"
+import FillOrder from "./FillOrder/index.jsx";
 
 const Operation = ({
   opType,
@@ -29,6 +30,8 @@ const Operation = ({
   totalVestingFundHive,
   totalVestingShares
 }) => {
+
+  console.log(opType, opData)
 
   opData['totalVestingShares'] = totalVestingShares
   opData['totalVestingFundHive'] = totalVestingFundHive
@@ -225,6 +228,16 @@ const Operation = ({
 
   if (opType === 'witness_set_properties') {
     return <WitnessSetProperties
+      data={opData}
+      timestamp={timestamp}
+      trx_id={transaction_id}
+      headBlockNumber={headBlockNumber}
+      key={index}
+    />
+  }
+
+  if (opType === 'fill_order') {
+    return <FillOrder
       data={opData}
       timestamp={timestamp}
       trx_id={transaction_id}

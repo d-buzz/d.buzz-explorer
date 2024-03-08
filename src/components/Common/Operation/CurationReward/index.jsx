@@ -16,8 +16,6 @@ const CurationReward = ({data, trx_id, timestamp, headBlockNumber}) => {
     totalVestingFundHive,
   } = data
 
-  console.log(data)
-
   return <div className="op op-mini" id={trx_id}>
     <span className="tag tag-virt">virtual</span>
 
