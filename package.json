@@ -8,13 +8,14 @@
   },
   "type": "module",
   "scripts": {
-    "dev": "vite --port 2020",
+    "dev": "vite --port 2021",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
     "axios": "^1.6.7",
+    "cross-env": "^7.0.3",
     "flowbite": "^2.3.0",
     "flowbite-react": "^0.7.2",
     "jdenticon": "^3.2.0",
