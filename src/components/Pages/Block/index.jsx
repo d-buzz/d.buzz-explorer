@@ -14,7 +14,7 @@ const BlockPage = () => {
     loading,
     timestamp,
     count,
-    error,
+    blockError,
   } = useGetBlocks(headBlockNumber)
   const {
     headBlockNumber: lastestHeadBlockNumber,
@@ -30,10 +30,10 @@ const BlockPage = () => {
     </div>
   }
 
-  if (error) {
+  if (blockError) {
     return <div className="container">
       <div className='row'>
-        <h2>{error}</h2>
+        <h2>{JSON.stringify(blockError)}</h2>
         <p>
           The latest head_block_number is <b>{lastestHeadBlockNumber}</b>
         </p>

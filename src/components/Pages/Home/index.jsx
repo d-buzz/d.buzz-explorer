@@ -17,18 +17,29 @@ const HomePage = () => {
     currentHbdSupply,
     virtualSupply,
     loading: dynamicGlobalLoading,
+    dynamicGlobalError,
   } = useDynamicGlobalProperties()
 
   const {
     timestamp,
     transactions,
     loading: blockLoading,
+    blockError,
   } = useGetBlocks(headBlockNumber)
 
   if (dynamicGlobalLoading && blockLoading && !headBlockNumber) {
     return <div className="container">
       <div className='row'>
         Loading...
+      </div>
+    </div>
+  }
+
+  if (dynamicGlobalError || blockError) {
+    return <div className="container">
+      <div className='row'>
+        {JSON.stringify(dynamicGlobalError)}
+        {JSON.stringify(blockError)}
       </div>
     </div>
   }

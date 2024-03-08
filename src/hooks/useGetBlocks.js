@@ -74,6 +74,7 @@ const useGetBlocks = (headBlockNumber) => {
           setLoading(false)
         } catch (error) {
           console.error('Error fetching blocks:', error)
+          setError(error)
           setLoading(false)
         }
       }
@@ -96,7 +97,7 @@ const useGetBlocks = (headBlockNumber) => {
     transactionIds,
     loading,
     count,
-    error,
+    blockError: error,
   }
 }
 

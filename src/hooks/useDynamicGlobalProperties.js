@@ -18,6 +18,7 @@ const handleGetDynamicGlobalProperties = async () => {
 
 const useDynamicGlobalProperties = () => {
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   const [headBlockNumber, setHeadBlockNumber] = useState(null)
   const [headBlockId, setHeadBlockId] = useState(null)
@@ -167,6 +168,7 @@ const useDynamicGlobalProperties = () => {
         setLoading(false)
       } catch (error) {
         console.error('Error fetching dynamic global properties:', error)
+        setError(error)
         setLoading(false)
       }
     }
@@ -220,7 +222,8 @@ const useDynamicGlobalProperties = () => {
     maxRecurrentTransferEndDate,
     minRecurrentTransfersRecurrence,
     maxOpenRecurrentTransfers,
-    loading
+    loading,
+    dynamicGlobalError: error,
   }
 }
 
