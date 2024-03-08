@@ -5,14 +5,18 @@ import {Link} from "react-router-dom"
 const CurationReward = ({data, trx_id, timestamp, headBlockNumber}) => {
 
   const {
+    author,
     reward,
     curator,
+    permlink,
     comment_author,
     comment_permlink,
     // payout_must_be_claimed,
     totalVestingShares,
     totalVestingFundHive,
   } = data
+
+  console.log(data)
 
   return <div className="op op-mini" id={trx_id}>
     <span className="tag tag-virt">virtual</span>
@@ -22,8 +26,8 @@ const CurationReward = ({data, trx_id, timestamp, headBlockNumber}) => {
       {` curation reward: `}
       {vestToHive(reward, totalVestingShares, totalVestingFundHive).toFixed(3)}
       {` HP for `}
-      <Link to={`/@${comment_author}/${comment_permlink}`} className="keychainify-checked">
-        {`@${comment_author}/${comment_permlink}`}
+      <Link to={`/@${comment_author || author}/${comment_permlink || permlink}`} className="keychainify-checked">
+        {`@${comment_author || author}/${comment_permlink || permlink}`}
       </Link>
     </div>
 
