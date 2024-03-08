@@ -10,6 +10,8 @@ import SearchPage from "./components/Pages/Search/index.jsx"
 import BlockPage from "./components/Pages/Block/index.jsx"
 import Transaction from "./components/Pages/Transaction/index.jsx"
 import AccountPage from "./components/Pages/Account/index.jsx"
+import Content from "./components/Pages/Content/index.jsx"
+import Owner from "./components/Pages/Owner/index.jsx"
 
 // create router with JSX Route elements
 const router = createBrowserRouter([
@@ -47,8 +49,16 @@ const router = createBrowserRouter([
         element: <AccountPage />,
       },
       {
+        path: "/:username/~owners",
+        element: <Owner />,
+      },
+      {
+        path: "/:community/:username/:permlink",
+        element: <Content />,
+      },
+      {
         path: "/:username/:permlink",
-        element: <AccountPage />,
+        element: <Content />,
       },
       {
         path: "/search",

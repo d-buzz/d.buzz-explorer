@@ -15,6 +15,16 @@ export const timeAgo = (timestamp) => !timestamp.endsWith('Z')
 export const vestToHive = (vestingShares, totalVestingShares, totalVestingFundHive) =>
   parseFloat(totalVestingFundHive) * (parseFloat(vestingShares) / parseFloat(totalVestingShares))
 
+export const getReputation = (_reputation) => {
+  if (_reputation == null) return _reputation
+  const neg = _reputation < 0
+  let rep = String(_reputation)
+  rep = neg ? rep.substring(1) : rep
+  let v = Math.log10((rep > 0 ? rep : -rep) - 10) - 9
+  v = neg ? -v : v
+  return parseFloat(v * 9 + 25)
+}
+
 export const tidyNumber = (number) => {
   if (number) {
     let parts = number.toString().split('.')
@@ -25,6 +35,31 @@ export const tidyNumber = (number) => {
   return null
 }
 
+export const isObjectEmpty = (objectName) => typeof objectName === 'undefined'
+  || Object.keys(objectName ?? {}).length === 0
+
+export const numberOfMoons = (originalDate) => {
+  const lunarCycle = 29.53 // Average lunar cycle in days
+  return Math.floor(moment().diff(moment(originalDate), 'days') / lunarCycle)
+}
+
+export const formatDateTime = (timestamp) => moment(timestamp).format('YYYY-MM-DD HH:mm:ss')
+
+export const formatHbdVestHiveToText = (data, withComma = false) => {
+  const [value, name] = data.split(' ')
+  if (withComma) {
+    return `${parseFloat(value).toLocaleString()} ${name}`
+  }
+  return `${value} ${name}`
+}
+
+export const isNumber = (value) => typeof value === 'number' && !isNaN(value)
+
+export const convertVariableToText = (variable) => variable.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+
+export const isDatetime = (timestamp) => /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/.test(timestamp)
+
+export const usernameWithoutAt = (username) => username.startsWith('@') ? username.slice(1) : username
 
 // Other helper functions can be added as needed
 
@@ -117,6 +152,8 @@ export const operationType = (type) => {
   case 'escrow_rejected':
     return 'test'
   case 'proxy_cleared':
+    return 'test'
+  case 'withdraw_vesting':
     return 'test'
 
   default:

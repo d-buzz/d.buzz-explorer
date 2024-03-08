@@ -1,7 +1,10 @@
+import ComingSoonOverlay from "../../../Common/ComingSoonOverlay/index.jsx"
+
 const ResourceCredits = () => {
   return (
-    <div className="well well-xs">
-      <span className="lead">Resource Credits</span><br />
+    <div className="well well-xs" style={{position: 'relative'}}>
+      <ComingSoonOverlay />
+      <span className="lead">Resource Credits</span><br/>
       <table className="table table-condensed hash3 ultra-condensed">
         <tbody>
           <tr>
@@ -23,14 +26,15 @@ const ResourceCredits = () => {
         </tbody>
       </table>
 
-      Enough credits for approximately:<br />
-      1 comments (12 after recharge) <br />
-      21 votes (189 after recharge) <br />
-      8 transfers (73 after recharge) <br />
+      Enough credits for approximately:<br/>
+      1 comments (12 after recharge) <br/>
+      21 votes (189 after recharge) <br/>
+      8 transfers (73 after recharge) <br/>
 
-      <i>100% recharged <time className="timeago2" dateTime="2024-03-02T17:49:30+01:00" title="2024-03-02 17:49:30+01:00">in 3 days</time></i><br />
+      <i>100% recharged <time className="timeago2" dateTime="2024-03-02T17:49:30+01:00"
+        title="2024-03-02 17:49:30+01:00">in 3 days</time></i><br/>
 
-      <br />
+      <br/>
       Your recharge rate is 2.8M per day.
       Approx costs:
       <table className="table table-condensed hash3 ultra-condensed">
@@ -49,6 +53,7 @@ const ResourceCredits = () => {
           </tr>
         </tbody>
       </table>
+
     </div>
   )
 }

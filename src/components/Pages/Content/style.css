@@ -1,0 +1,53 @@
+.md {font-size: 15px; font-weight: 300; margin: 0 0 -3px;}
+.md-inner {padding: 5px 10px 0;}
+.md h1:first-child {margin-top: 4px;}
+.md h1 strong {font-weight: inherit;}
+.md h1 {font-size: 130%; margin: 12px 0 8px; color: #888; font-weight: 300; padding: 0;}
+.md h2 {font-size: 115%; margin: 2px 0 8px;  color: #666; font-weight: 400;}
+.md h3 {font-size: 108%; margin: 6px 0 6px;  color: #444; font-weight: 500;}
+.md h4 {font-size: 108%; font-weight: 300;}
+.md h5 {font-size: 108%; font-weight: 200; color: #888;}
+.md strong {font-weight: 500;}
+.md p,
+.md table,
+.md ol,
+.md ul {margin-bottom: 8px;}
+.md table {border-collapse: collapse; border: 1px solid #EEE; margin-bottom: 10px;}
+.md table th,
+.md table td {border: 1px solid #EEE;}
+.md table thead tr {background: #F2F2F2;}
+.md table tbody tr:nth-child(even) {
+  background-color: #F8F8F8;
+}
+.md table thead *,
+.md table th {padding: 3px 8px; font-weight: bold;}
+.md table td {padding: 3px 8px;}
+.md blockquote {font-size: 100%; color: #888; font-weight: 300;}
+.md pre {font-size: 12px;}
+.md img {padding: 2px; border: 1px solid #DDD;}
+.md img {max-width: 640px; height: auto;}
+.post-head-bar {font-size: 13px; border-bottom: 1px solid #DDD; padding: 4px 5px 0px; line-height: 13px;}
+
+.post-head {overflow: hidden; line-height: 120%; text-overflow: ellipsis; max-width: 400px; display: inline-block; white-space: nowrap;}
+.post .timeago2 {color: #999;}
+
+.op.highlight {background: #FFFBCC !important}
+.post .canonical {float: right; margin-top: -1px;}
+.post-title {font-size: 15px; font-weight: 500; padding: 0 4px; margin: 5px 5px -1px; border-bottom: 1px solid #EEE; display: block; color: #444;}
+.post-payout {float: right; margin-right: 10px; color: #080;}
+.post-category a {color: #666; font-weight: 500;}
+.post-category .glyphicon {font-size: 80%; color: #bbb; margin-right: 3px;}
+.post-votes {font-size: 90%; border-top: 1px solid #EEE; padding: 3px 4px; margin: 0 6px;}
+
+m {color: inherit; opacity: 0.65; font-size: 65%;}
+
+.md hr {margin-top: 8px; margin-bottom: 8px;}
+.overflow {background: url(/grad2c.png) 50% 100% repeat-x; float: left; width: 100%; color: white; text-align: center; font-weight: bold; z-index: 99; position: relative;}
+.md.overflowed {overflow: hidden; cursor: pointer; d: s-resize;}
+.md.overflowed:hover .overflow {opacity: 0.75;}
+
+#search {display: inline-block; font-size: 0.7em; line-height: 1.6em; color: black; padding: 0.4em 1em;}
+#search input[type="text"] {padding-left: 0.5em;}
+#search input[type="text"]::placeholder {font-size: 0.8em;}
+
+.op code {font-size: 70%;}
